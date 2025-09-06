@@ -61,41 +61,41 @@
 <body class="relative">
 
 <!-- Navbar -->
-<header id="mainHeader" class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/5 border-b border-white/10 transition-all duration-300">
+<header id="mainHeader" class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-gradient-to-r from-cyan-400/20 via-purple-500/20 to-pink-400/20 border-b border-white/20 transition-all duration-300">
   <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
     
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2">
       <!-- Small circle logo (hidden by default) -->
-      <div id="logoIcon" class="w-6 h-6 rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 hidden"></div>
+      <div id="logoIcon" class="w-6 h-6 rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 hidden shadow-lg shadow-cyan-400/40"></div>
       
       <!-- Text logo -->
-      <span id="logoText" class="text-lg font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 text-transparent bg-clip-text">
+      <span id="logoText" class="text-lg font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 text-transparent bg-clip-text drop-shadow-lg">
         CloudSia
       </span>
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-8 text-gray-200">
-      <a href="/research.html" class="hover:text-cyan-400 transition">Research</a>
-      <a href="/safety.html" class="hover:text-purple-400 transition">Safety</a>
-      <a href="/products.html" class="hover:text-pink-400 transition">Product</a>
-      <a href="/gpt.html" class="hover:text-cyan-400 transition">GPT Model</a>
-      <a href="/api.html" class="hover:text-purple-400 transition">API Platform</a>
-      <a href="/company.html" class="hover:text-pink-400 transition">Company</a>
-      <a href="/news.html" class="hover:text-cyan-400 transition">News</a>
-      <a href="/community.html" class="hover:text-purple-400 transition">Community</a>
+    <nav class="hidden md:flex items-center gap-8 text-white font-medium drop-shadow-sm">
+      <a href="/research.html" class="hover:text-cyan-200 transition">Research</a>
+      <a href="/safety.html" class="hover:text-purple-200 transition">Safety</a>
+      <a href="/products.html" class="hover:text-pink-200 transition">Product</a>
+      <a href="/gpt.html" class="hover:text-cyan-200 transition">GPT Model</a>
+      <a href="/api.html" class="hover:text-purple-200 transition">API Platform</a>
+      <a href="/company.html" class="hover:text-pink-200 transition">Company</a>
+      <a href="/news.html" class="hover:text-cyan-200 transition">News</a>
+      <a href="/community.html" class="hover:text-purple-200 transition">Community</a>
     </nav>
 
     <!-- Auth Buttons -->
     <div class="hidden md:flex items-center gap-4">
-      <button class="px-4 py-1.5 rounded-lg border border-white/30 bg-white/10 text-white hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-black transition">
+      <button class="px-4 py-1.5 rounded-lg border border-white/30 bg-white/20 text-white hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-black transition shadow-md shadow-cyan-200/30">
         Sign In
       </button>
     </div>
 
     <!-- Mobile Hamburger -->
-    <button id="mobileMenuBtn" class="md:hidden text-gray-200 focus:outline-none">
+    <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none">
       <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
@@ -103,16 +103,16 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 text-sm bg-[#060814]/95 backdrop-blur-md border-t border-white/10 space-y-2">
-    <a href="/research.html" class="block py-2 text-gray-200 hover:text-cyan-400">Research</a>
-    <a href="/safety.html" class="block py-2 text-gray-200 hover:text-purple-400">Safety</a>
-    <a href="/products.html" class="block py-2 text-gray-200 hover:text-pink-400">Product</a>
-    <a href="/gpt.html" class="block py-2 text-gray-200 hover:text-cyan-400">GPT Model</a>
-    <a href="/api.html" class="block py-2 text-gray-200 hover:text-purple-400">API Platform</a>
-    <a href="/company.html" class="block py-2 text-gray-200 hover:text-pink-400">Company</a>
-    <a href="/news.html" class="block py-2 text-gray-200 hover:text-cyan-400">News</a>
-    <a href="/community.html" class="block py-2 text-gray-200 hover:text-purple-400">Community</a>
-    <button class="w-full mt-2 px-4 py-2 rounded-lg border border-white/30 bg-white/10 text-white hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-black transition">
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 text-sm bg-gradient-to-b from-cyan-400/20 via-purple-500/20 to-pink-400/20 backdrop-blur-xl border-t border-white/20 space-y-2">
+    <a href="/research.html" class="block py-2 text-white hover:text-cyan-200">Research</a>
+    <a href="/safety.html" class="block py-2 text-white hover:text-purple-200">Safety</a>
+    <a href="/products.html" class="block py-2 text-white hover:text-pink-200">Product</a>
+    <a href="/gpt.html" class="block py-2 text-white hover:text-cyan-200">GPT Model</a>
+    <a href="/api.html" class="block py-2 text-white hover:text-purple-200">API Platform</a>
+    <a href="/company.html" class="block py-2 text-white hover:text-pink-200">Company</a>
+    <a href="/news.html" class="block py-2 text-white hover:text-cyan-200">News</a>
+    <a href="/community.html" class="block py-2 text-white hover:text-purple-200">Community</a>
+    <button class="w-full mt-2 px-4 py-2 rounded-lg border border-white/30 bg-white/20 text-white hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-black transition shadow-md shadow-cyan-200/30">
       Sign In
     </button>
   </div>
@@ -120,7 +120,6 @@
 
 <!-- Script for logo swap + mobile toggle -->
 <script>
-  const header = document.getElementById("mainHeader");
   const logoText = document.getElementById("logoText");
   const logoIcon = document.getElementById("logoIcon");
   const mobileMenuBtn = document.getElementById("mobileMenuBtn");
@@ -187,5 +186,6 @@
   </script>
 </body>
 </html>
+
 
 
