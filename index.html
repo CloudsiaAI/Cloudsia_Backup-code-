@@ -60,6 +60,34 @@
 </head>
 <body class="relative">
 
+<!-- Navbar -->
+<header class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/5 border-b border-white/10">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2">
+      <div class="w-3 h-3 rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 animate-pulse"></div>
+      <span class="text-lg font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 text-transparent bg-clip-text">
+        CloudSia
+      </span>
+    </a>
+
+    <!-- Nav Links -->
+    <nav class="hidden md:flex items-center gap-8 text-gray-200">
+      <a href="/research.html" class="hover:text-cyan-400 transition">Research</a>
+      <a href="/news.html" class="hover:text-purple-400 transition">News</a>
+      <a href="/community.html" class="hover:text-pink-400 transition">Community</a>
+      <a href="/support.html" class="hover:text-cyan-400 transition">Support</a>
+    </nav>
+
+    <!-- Auth Buttons -->
+    <div class="flex items-center gap-4">
+      <button class="px-4 py-1.5 rounded-lg border border-white/30 bg-white/10 text-white hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-black transition">
+        Sign In
+      </button>
+    </div>
+  </div>
+</header>
+  
   <!-- Particle Background -->
   <div id="particles-js"></div>
 
@@ -104,3 +132,4 @@
   </script>
 </body>
 </html>
+
