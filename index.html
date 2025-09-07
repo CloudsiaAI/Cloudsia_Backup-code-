@@ -60,7 +60,7 @@
 </head>
 <body class="relative">
 
-<!-- NAV - Option A (Solid Navy, opaque) -->
+<!-- NAV - Solid Navy with Gradient Line + Animated Mobile Menu -->
 <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 bg-[hsl(225,39%,8%)] border-b border-white/5 shadow-sm transition-all">
   <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
     <!-- Logo -->
@@ -94,11 +94,11 @@
     </button>
   </div>
 
-  <!-- thin gradient accent line -->
+  <!-- ✅ Gradient accent line (kept here) -->
   <div class="h-[2px] w-full bg-gradient-to-r from-[#22d3ee] via-[#8b5cf6] to-[#f472b6]"></div>
 
   <!-- Mobile menu -->
-  <div id="mobileMenu" class="hidden md:hidden bg-[hsl(225,39%,8%)] border-t border-white/5 px-6 pb-4 space-y-2">
+  <div id="mobileMenu" class="hidden md:hidden bg-[hsl(225,39%,8%)] border-t border-white/5 px-6 pb-4 space-y-2 transform scale-y-0 origin-top transition-transform duration-300 ease-out">
     <a href="/research.html" class="block py-2 text-white">Research</a>
     <a href="/safety.html" class="block py-2 text-white">Safety</a>
     <a href="/products.html" class="block py-2 text-white">Product</a>
@@ -112,7 +112,6 @@
 </header>
 
 <script>
-  // Logo swap + mobile toggle (works for Option A)
   (function(){
     const logoText = document.getElementById('logoText');
     const logoIcon = document.getElementById('logoIcon');
@@ -120,23 +119,37 @@
     const mobileMenu = document.getElementById('mobileMenu');
 
     // initial state: show text, hide icon
-    if (logoIcon) logoIcon.classList.add('hidden');
-    if (logoText) logoText.classList.remove('hidden');
+    logoIcon?.classList.add('hidden');
+    logoText?.classList.remove('hidden');
 
-    // swap on scroll
+    // swap logo on scroll
     window.addEventListener('scroll', () => {
       if (window.scrollY > 60) {
-        logoText && logoText.classList.add('hidden');
-        logoIcon && logoIcon.classList.remove('hidden');
+        logoText?.classList.add('hidden');
+        logoIcon?.classList.remove('hidden');
       } else {
-        logoIcon && logoIcon.classList.add('hidden');
-        logoText && logoText.classList.remove('hidden');
+        logoIcon?.classList.add('hidden');
+        logoText?.classList.remove('hidden');
       }
     }, { passive: true });
 
-    // mobile toggle
-    mobileMenuBtn && mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu && mobileMenu.classList.toggle('hidden');
+    // mobile menu animation
+    mobileMenuBtn?.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        setTimeout(() => {
+          mobileMenu.classList.remove('scale-y-0');
+          mobileMenu.classList.add('scale-y-100');
+        }, 10);
+      } else {
+        mobileMenu.classList.remove('scale-y-100');
+        mobileMenu.classList.add('scale-y-0');
+        mobileMenu.addEventListener('transitionend', () => {
+          if (mobileMenu.classList.contains('scale-y-0')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }, { once: true });
+      }
     });
   })();
 </script>
@@ -185,6 +198,7 @@
   </script>
 </body>
 </html>
+
 
 
 
