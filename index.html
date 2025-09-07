@@ -60,15 +60,14 @@
 </head>
 <body class="relative">
 
-<!-- NAV - Solid Navy with Gradient Line + Animated Mobile Menu -->
 <!-- NAV - Solid Navy, Glassmorphism, Animated Links -->
 <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 bg-[hsl(225,39%,8%)]/80 backdrop-blur-md border-b border-white/5 shadow-sm transition-all">
   <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-3">
-      <div id="logoIcon" class="w-6 h-6 rounded-full bg-gradient-to-r from-[#22d3ee] via-[#8b5cf6] to-[#f472b6] hidden"></div>
-      <span id="logoText" class="text-lg font-semibold text-white">CloudSia</span>
-    </a>
+    <a href="/" class="flex items-center">
+  <span id="logoText" class="font-bold text-xl text-white logo-transition">CloudSia</span>
+  <span id="logoIcon" class="hidden w-6 h-6 bg-cyan-400 rounded-full logo-transition"></span>
+</a>
 
     <!-- Desktop nav -->
     <nav class="hidden md:flex items-center gap-8 text-white/90 text-sm font-medium">
@@ -200,6 +199,35 @@
       retina_detect: true
     });
   </script>
+
+  <!-- JS for Navbar Logo Transition -->
+  <script>
+    const logoText = document.getElementById("logoText");
+    const logoIcon = document.getElementById("logoIcon");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        logoText.style.opacity = "0";
+        logoText.style.transform = "scale(0.8)";
+        setTimeout(() => {
+          logoText.classList.add("hidden");
+          logoIcon.classList.remove("hidden");
+          logoIcon.style.opacity = "1";
+          logoIcon.style.transform = "scale(1)";
+        }, 200);
+      } else {
+        logoIcon.style.opacity = "0";
+        logoIcon.style.transform = "scale(0.8)";
+        setTimeout(() => {
+          logoIcon.classList.add("hidden");
+          logoText.classList.remove("hidden");
+          logoText.style.opacity = "1";
+          logoText.style.transform = "scale(1)";
+        }, 200);
+      }
+    });
+  </script>
 </body>
 </html>
+
 
