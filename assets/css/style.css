@@ -42,3 +42,8 @@ body{
   backdrop-filter:blur(8px);
 }
 
+/* Logo transition */
+.logo-transition {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform-origin: left center;
+}
