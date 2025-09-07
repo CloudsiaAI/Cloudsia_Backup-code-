@@ -117,18 +117,18 @@
     const mobileMenu = document.getElementById('mobileMenu');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // initial logo state
-    logoIcon?.classList.add('hidden');
-    logoText?.classList.remove('hidden');
+    // Ensure both states are reset
+    logoIcon.classList.add('hidden');
+    logoText.classList.remove('hidden');
 
-    // swap logo on scroll
+    // swap logo on scroll (works for all screen sizes)
     window.addEventListener('scroll', () => {
       if (window.scrollY > 60) {
-        logoText?.classList.add('hidden');
-        logoIcon?.classList.remove('hidden');
+        logoText.classList.add('hidden');
+        logoIcon.classList.remove('hidden');
       } else {
-        logoIcon?.classList.add('hidden');
-        logoText?.classList.remove('hidden');
+        logoIcon.classList.add('hidden');
+        logoText.classList.remove('hidden');
       }
     }, { passive: true });
 
@@ -137,7 +137,7 @@
       setTimeout(() => {
         link.classList.remove('opacity-0', 'translate-y-3');
         link.classList.add('opacity-100', 'translate-y-0', 'transition-all', 'duration-500');
-      }, index * 120); // stagger effect
+      }, index * 120);
     });
 
     // mobile menu animation
@@ -204,10 +204,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
