@@ -174,11 +174,24 @@
 
     <!-- Yui Image -->
   <img 
+    align="center"
     src="Yui_TFHO_4.png" 
     alt="Yui AI Companion" 
     class="w-64 md:w-80 lg:w-96 animate-float"
   />
 
+    <!-- Floating animation -->
+<style>
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+</style>
+    
     <!-- Glassy Gradient Button as Link -->
     <div class="flex justify-center mt-16">
       <a href="/chat.html" class="outer-cont flex">
