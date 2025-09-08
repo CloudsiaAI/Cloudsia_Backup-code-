@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CloudSia</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: hsl(225, 39%, 4%);
+      --cyan: #22d3ee;
+      --purple: #8b5cf6;
+      --pink: #f472b6;
+    }
+
+    html,body{height:100%;}
+    body {
+      background-color: var(--bg-dark);
+      color: white;
+      overflow-x: hidden;
+      margin:0;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Particle container */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    /* keep gradient-text if used */
+    .gradient-text {
+      background: linear-gradient(to right, var(--cyan), var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* small helper for the Uiverse button only (renamed) */
+    .uiv-flex {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* Uiverse button (unchanged other than .flex rename) */
+    .outer-cont {
+      min-width: 220px;
+      text-align: center;
+      padding: 14px 28px;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      position: relative;
+      background: linear-gradient(90deg, #5bfcc4, #f593e4, #71a4f0);
+      border-radius: 12px;
+      color: #fff;
+      transition: all 0.3s ease;
+      box-shadow:
+        inset 0px 0px 5px #ffffffa9,
+        inset 0px 35px 30px #000,
+        0px 5px 10px #000000cc;
+      text-shadow: 1px 1px 1px #000;
+      text-decoration: none;
+    }
+    .outer-cont::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      border-radius: 12px;
+      filter: blur(0);
+      z-index: -1;
+      background: conic-gradient(
+        #00000000 80deg,
+        #40baf7,
+        #f34ad7,
+        #5bfcc4,
+        #00000000 280deg
+      );
+      transition: all 0.3s ease;
+    }
+    .outer-cont:hover::before { filter: blur(15px); }
+    .outer-cont:active::before { filter: blur(5px); transform: translateY(1px); }
+    .outer-cont:active {
+      box-shadow: inset 0px 0px 5px #ffffffa9, inset 0px 35px 30px #000;
+      margin-top: 3px;
+    }
+
+    /* logo transition */
+    .logo-transition { transition: opacity .25s ease, transform .25s ease; transform-origin: left center; }
+
+    /* floating animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+
+  </style>
+</head>
+<body class="relative">
+
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <!-- NAV - Solid Navy, Glassmorphism, Animated Links -->
+  <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 bg-[hsl(225,39%,8%)]/80 backdrop-blur-md border-b border-white/5 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between w-full">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3">
+        <span id="logoText" class="font-bold text-xl text-white logo-transition">CloudSia</span>
+        <span id="logoIcon" class="hidden w-6 h-6 bg-[var(--cyan)] rounded-full logo-transition"></span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-8 text-white/90 text-sm font-medium">
+        <a href="/research.html" class="nav-link opacity-0 translate-y-3">Research</a>
+        <a href="/safety.html" class="nav-link opacity-0 translate-y-3">Safety</a>
+        <a href="/products.html" class="nav-link opacity-0 translate-y-3">Product</a>
+        <a href="/gpt.html" class="nav-link opacity-0 translate-y-3">GPT Model</a>
+        <a href="/api.html" class="nav-link opacity-0 translate-y-3">API Platform</a>
+        <a href="/company.html" class="nav-link opacity-0 translate-y-3">Company</a>
+        <a href="/news.html" class="nav-link opacity-0 translate-y-3">News</a>
+        <a href="/community.html" class="nav-link opacity-0 translate-y-3">Community</a>
+      </nav>
+
+      <!-- Auth -->
+      <div class="hidden md:flex items-center gap-4">
+        <button class="px-4 py-1.5 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20 transition">Sign In</button>
+      </div>
+
+      <!-- mobile button -->
+      <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none" aria-label="Open menu">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-[hsl(225,39%,8%)]/95 backdrop-blur-lg border-t border-white/5 px-6 pb-4 space-y-2 transform scale-y-0 origin-top transition-transform duration-300 ease-out">
+      <a href="/research.html" class="block py-2 text-white">Research</a>
+      <a href="/safety.html" class="block py-2 text-white">Safety</a>
+      <a href="/products.html" class="block py-2 text-white">Product</a>
+      <a href="/gpt.html" class="block py-2 text-white">GPT Model</a>
+      <a href="/api.html" class="block py-2 text-white">API Platform</a>
+      <a href="/company.html" class="block py-2 text-white">Company</a>
+      <a href="/news.html" class="block py-2 text-white">News</a>
+      <a href="/community.html" class="block py-2 text-white">Community</a>
+      <button class="w-full mt-2 px-4 py-2 rounded-md bg-white/10 text-white border border-white/20">Sign In</button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="relative z-10">
+    <section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6">
+      <div class="z-10 max-w-3xl">
+        <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">Meet Yui</h1>
+        <p class="text-lg md:text-xl text-gray-300 mb-12">
+          Your AI companion designed to guide, assist, and bring a human touch to technology.
+        </p>
+
+        <!-- Yui Image centered -->
+        <div class="flex justify-center">
+          <img src="Yui_TFHO_4.png" alt="Yui AI Companion" class="w-64 md:w-80 lg:w-96 animate-float mx-auto mb-6" />
+        </div>
+
+        <!-- Button (Uiverse) - use uiv-flex so we don't override Tailwind .flex -->
+        <div class="flex justify-center mt-16">
+          <a href="/chat.html" class="outer-cont uiv-flex">Talk to Yui</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Particle Config -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 70 },
+        color: { value: ["#22d3ee", "#8b5cf6", "#f472b6"] },
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.7,
+          anim: { enable: true, speed: 1, opacity_min: 0.3 }
+        },
+        size: { value: 3, random: true },
+        line_linked: { enable: false },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          out_mode: "out"
+        }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } },
+        modes: { repulse: { distance: 100, duration: 0.4 } }
+      },
+      retina_detect: true
+    });
+  </script>
+
+  <!-- JS - nav animations, logo swap, mobile toggle -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Animate nav links on load
+      document.querySelectorAll(".nav-link").forEach((link, i) => {
+        setTimeout(() => {
+          link.classList.remove("opacity-0", "translate-y-3");
+          link.classList.add("opacity-100", "translate-y-0", "transition-all", "duration-500");
+        }, i * 100);
+      });
+
+      const logoText = document.getElementById("logoText");
+      const logoIcon = document.getElementById("logoIcon");
+
+      // Ensure initial state
+      if (logoIcon) logoIcon.classList.add("hidden");
+      if (logoText) { logoText.style.opacity = "1"; logoText.style.transform = "scale(1)"; }
+
+      // swap logo on scroll (works on all sizes)
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          // hide text with smooth transform then show icon
+          logoText.style.opacity = "0";
+          logoText.style.transform = "scale(.85)";
+          setTimeout(() => {
+            logoText.classList.add("hidden");
+            logoIcon.classList.remove("hidden");
+            logoIcon.style.opacity = "1";
+            logoIcon.style.transform = "scale(1)";
+          }, 200);
+        } else {
+          logoIcon.style.opacity = "0";
+          logoIcon.style.transform = "scale(.85)";
+          setTimeout(() => {
+            logoIcon.classList.add("hidden");
+            logoText.classList.remove("hidden");
+            logoText.style.opacity = "1";
+            logoText.style.transform = "scale(1)";
+          }, 200);
+        }
+      }, { passive: true });
+
+      // mobile menu toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      mobileMenuBtn?.addEventListener("click", () => {
+        if (mobileMenu.classList.contains("hidden")) {
+          mobileMenu.classList.remove("hidden");
+          // open animation: remove scale-y-0 after small delay
+          setTimeout(() => mobileMenu.classList.remove("scale-y-0"), 10);
+        } else {
+          mobileMenu.classList.add("scale-y-0");
+          mobileMenu.addEventListener("transitionend", function fn(){
+            if (mobileMenu.classList.contains("scale-y-0")) mobileMenu.classList.add("hidden");
+            mobileMenu.removeEventListener('transitionend', fn);
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+            </html>
