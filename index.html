@@ -226,6 +226,66 @@
     #00000000 80deg,
     #40baf7,
     #f34ad7,
+<!-- Hero Section -->
+<section class="relative flex flex-col items-center justify-center text-center py-32">
+  <!-- Hero Content -->
+  <div class="z-10">
+    <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">Meet Yui</h1>
+    <p class="text-lg md:text-xl text-gray-300 mb-12 max-w-xl mx-auto">
+      Your AI companion designed to guide, assist, and bring a human touch to technology.
+    </p>
+
+    <!-- Glassy Gradient Button as Link -->
+    <div class="flex justify-center mt-16">
+      <a href="/chat.html" class="outer-cont flex">
+        Talk to Yui
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+/* From Uiverse.io by Spacious74 */ 
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.outer-cont {
+  min-width: 220px; /* wider button */
+  text-align: center;
+  padding: 14px 28px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  position: relative;
+  background: linear-gradient(90deg, #5bfcc4, #f593e4, #71a4f0);
+  border-radius: 12px;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow:
+    inset 0px 0px 5px #ffffffa9,
+    inset 0px 35px 30px #000,
+    0px 5px 10px #000000cc;
+  text-shadow: 1px 1px 1px #000;
+  text-decoration: none; /* remove underline */
+}
+
+.outer-cont::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 12px;
+  filter: blur(0);
+  z-index: -1;
+  box-shadow: none;
+  background: conic-gradient(
+    #00000000 80deg,
+    #40baf7,
+    #f34ad7,
     #5bfcc4,
     #00000000 280deg
   );
@@ -322,6 +382,7 @@
   </script>
 </body>
 </html>
+
 
 
 
