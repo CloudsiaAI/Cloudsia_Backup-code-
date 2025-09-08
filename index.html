@@ -1,1 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CloudSia</title>
 
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: hsl(225, 39%, 4%);
+      --cyan: #22d3ee;
+      --purple: #8b5cf6;
+      --pink: #f472b6;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Particle container */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(to right, var(--cyan), var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Button glow */
+    .glow-btn {
+      background: linear-gradient(to right, var(--cyan), var(--purple));
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glow-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(244, 114, 182, 0.8);
+    }
+  </style>
+</head>
+<body class="relative">
+
+  <!-- NAV - Solid Navy, Glassmorphism, Animated Links -->
+<header id="mainHeader" class="fixed top-0 left-0 w-full z-50 bg-[hsl(225,39%,8%)]/80 backdrop-blur-md border-b border-white/5 shadow-sm transition-all">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3">
+      <div id="logoIcon" class="w-6 h-6 rounded-full bg-gradient-to-r from-[#22d3ee] via-[#8b5cf6] to-[#f472b6] hidden"></div>
+      <span id="logoText" class="text-lg font-semibold text-white">CloudSia</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-8 text-white/90 text-sm font-medium">
+      <a href="/research.html" class="nav-link opacity-0 translate-y-3">Research</a>
+      <a href="/safety.html" class="nav-link opacity-0 translate-y-3">Safety</a>
+      <a href="/products.html" class="nav-link opacity-0 translate-y-3">Product</a>
+      <a href="/gpt.html" class="nav-link opacity-0 translate-y-3">GPT Model</a>
+      <a href="/api.html" class="nav-link opacity-0 translate-y-3">API Platform</a>
+      <a href="/company.html" class="nav-link opacity-0 translate-y-3">Company</a>
+      <a href="/news.html" class="nav-link opacity-0 translate-y-3">News</a>
+      <a href="/community.html" class="nav-link opacity-0 translate-y-3">Community</a>
+    </nav>
+
+    <!-- Auth -->
+    <div class="hidden md:flex items-center gap-4">
+      <button class="px-4 py-1.5 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20 transition">Sign In</button>
+    </div>
+
+    <!-- mobile button -->
+    <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none" aria-label="Open menu">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-[hsl(225,39%,8%)]/95 backdrop-blur-lg border-t border-white/5 px-6 pb-4 space-y-2 transform scale-y-0 origin-top transition-transform duration-300 ease-out">
+    <a href="/research.html" class="block py-2 text-white">Research</a>
+    <a href="/safety.html" class="block py-2 text-white">Safety</a>
+    <a href="/products.html" class="block py-2 text-white">Product</a>
+    <a href="/gpt.html" class="block py-2 text-white">GPT Model</a>
+    <a href="/api.html" class="block py-2 text-white">API Platform</a>
+    <a href="/company.html" class="block py-2 text-white">Company</a>
+    <a href="/news.html" class="block py-2 text-white">News</a>
+    <a href="/community.html" class="block py-2 text-white">Community</a>
+    <button class="w-full mt-2 px-4 py-2 rounded-md bg-white/10 text-white border border-white/20">Sign In</button>
+  </div>
+</header>
+
+<script>
+  (function(){
+    const logoText = document.getElementById('logoText');
+    const logoIcon = document.getElementById('logoIcon');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Ensure both states are reset
+    logoIcon.classList.add('hidden');
+    logoText.classList.remove('hidden');
+
+    // swap logo on scroll (works for all screen sizes)
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        logoText.classList.add('hidden');
+        logoIcon.classList.remove('hidden');
+      } else {
+        logoIcon.classList.add('hidden');
+        logoText.classList.remove('hidden');
+      }
+    }, { passive: true });
+
+    // animate nav links on load
+    navLinks.forEach((link, index) => {
+      setTimeout(() => {
+        link.classList.remove('opacity-0', 'translate-y-3');
+        link.classList.add('opacity-100', 'translate-y-0', 'transition-all', 'duration-500');
+      }, index * 120);
+    });
+
+    // mobile menu animation
+    mobileMenuBtn?.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        setTimeout(() => {
+          mobileMenu.classList.remove('scale-y-0');
+          mobileMenu.classList.add('scale-y-100');
+        }, 10);
+      } else {
+        mobileMenu.classList.remove('scale-y-100');
+        mobileMenu.classList.add('scale-y-0');
+        mobileMenu.addEventListener('transitionend', () => {
+          if (mobileMenu.classList.contains('scale-y-0')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }, { once: true });
+      }
+    });
+  })();
+</script>
+
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex flex-col justify-center items-center text-center z-10">
+    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+      <span class="text-white">Cloud </span>
+      <span class="gradient-text">Native AI Platform</span>
+    </h1>
+    <p class="max-w-xl mx-auto text-gray-300 mb-8">
+      Futuristic AI infrastructure with holographic UI, real-time processing, and immersive visuals.
+    </p>
+    <button class="glow-btn">Launch Platform</button>
+  </section>
+
+  <!-- Particle Config -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 70 },
+        color: { value: ["#22d3ee", "#8b5cf6", "#f472b6"] },
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.7,
+          anim: { enable: true, speed: 1, opacity_min: 0.3 }
+        },
+        size: { value: 3, random: true },
+        line_linked: { enable: false },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          out_mode: "out"
+        }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } },
+        modes: { repulse: { distance: 100, duration: 0.4 } }
+      },
+      retina_detect: true
+    });
+  </script>
+</body>
+</html>
