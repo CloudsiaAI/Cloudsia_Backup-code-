@@ -160,23 +160,47 @@
   <!-- Particle Background -->
   <div id="particles-js"></div>
 
-<!-- Hero Section -->
-<section class="relative min-h-screen flex flex-col items-center justify-center text-center px-6">
-  
-  <!-- Yui Avatar -->
-  <img src="/Yui_TFHO_4.png" 
-       alt="Yui Avatar" 
-       class="w-64 md:w-96 floating-avatar drop-shadow-[0_0_25px_rgba(34,211,238,0.6)]" />
+<section class="relative min-h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden hero-background">
+  <!-- Headline -->
+  <h1 class="text-5xl md:text-6xl font-bold mb-4">
+    Your AI Companion
+  </h1>
 
-  <!-- Talk to Yui Button -->
-  <div class="mt-6">
-    <a href="/chat-with-yui.html" 
-       class="px-6 py-3 border border-cyan-400 text-cyan-400 rounded-xl backdrop-blur-md bg-white/5 hover:bg-cyan-400/20 transition-all">
+  <!-- Subtext -->
+  <p class="text-lg md:text-xl text-gray-300 max-w-2xl mb-8">
+    Meet Yui — an AI built to guide, assist, and connect with you in a whole new way.
+  </p>
+
+  <!-- Yui Image -->
+  <img 
+    src="Yui_TFHO_4.png" 
+    alt="Yui AI Companion" 
+    class="w-64 md:w-80 lg:w-96 animate-float"
+  />
+
+  <!-- Button -->
+  <div class="mt-8">
+    <a href="#talk-to-yui" 
+       class="px-8 py-3 rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-400 text-white font-semibold shadow-lg hover:scale-105 transition-transform">
       Talk to Yui
     </a>
   </div>
-  
+
+  <!-- Gradient overlay -->
+  <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/60 to-transparent"></div>
 </section>
+
+<!-- Floating animation -->
+<style>
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+</style>
 
   <!-- Particle Config -->
   <script>
@@ -235,6 +259,7 @@
   </script>
 </body>
 </html>
+
 
 
 
