@@ -178,10 +178,14 @@
     class="w-64 md:w-80 lg:w-96 animate-float"
   />
 
-<!-- Button -->
-<div class="mt-8">
+<!-- Button with Pulse Effect -->
+<div class="mt-8 relative flex justify-center">
+  <!-- Pulse ring -->
+  <span class="absolute inline-flex h-full w-full rounded-full bg-cyan-400/30 blur-xl animate-ping"></span>
+
+  <!-- Main button -->
   <a href="#talk-to-yui" 
-     class="px-8 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 
+     class="relative px-8 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 
             text-white font-medium shadow-lg hover:bg-white/20 hover:border-white/30 
             hover:shadow-cyan-400/40 transition-all duration-300">
     Talk to Yui
@@ -261,6 +265,7 @@
   </script>
 </body>
 </html>
+
 
 
 
