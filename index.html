@@ -117,69 +117,108 @@
   <div id="particles-js"></div>
 
 <!-- HEADER -->
-<header id="mainHeader" class="fixed top-0 left-0 w-full z-50 bg-black text-white shadow-sm">
-  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between relative">
-
+<header id="mainHeader" class="fixed top-0 left-0 w-full z-50 bg-black backdrop-blur-md border-b border-white/5 shadow-sm transition-all">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between w-full">
+    
     <!-- Logo -->
     <a href="/" class="flex items-center">
-      <span id="logoText" class="font-bold text-xl transition-all">CloudSia</span>
-      <span id="logoIcon" class="hidden ml-2 w-6 h-6 bg-cyan-400 rounded-full transition-all"></span>
+      <span id="logoText" class="font-bold text-xl text-white">CloudSia</span>
+      <span id="logoIcon" class="hidden w-6 h-6 bg-cyan-400 rounded-full"></span>
     </a>
 
-    <!-- Center nav (desktop only) -->
-    <nav class="hidden md:flex items-center gap-4 mx-auto">
-      <a href="/research.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">Research</a>
-      <a href="/safety.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">Safety</a>
-      <a href="/products.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">Product</a>
-      <a href="/gpt.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">GPT Model</a>
-      <a href="/api.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">API Platform</a>
-      <a href="/company.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">Company</a>
-      <a href="/news.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">News</a>
-    </nav>
-
-    <!-- Right section: search + sign in -->
-    <div class="hidden md:flex items-center gap-4 ml-auto">
-      <!-- Search -->
+    <!-- Search Bar (Desktop Only) -->
+    <div class="hidden md:flex items-center flex-1 justify-center px-6">
       <input 
         type="text" 
-        placeholder="Search" 
-        class="px-3 py-1 rounded-md bg-white/10 border border-white/20 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+        placeholder="Search..." 
+        class="w-full max-w-md px-4 py-2 rounded-full bg-white/5 text-white placeholder-white/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
       />
-      <!-- Sign In -->
-      <button class="px-4 py-1.5 rounded-md bg-white/10 border border-white/20 hover:bg-white/20 transition">Sign In</button>
     </div>
 
-    <!-- Mobile button -->
-    <button id="mobileMenuBtn" class="md:hidden z-20 text-white focus:outline-none" aria-label="Open menu">
+    <!-- Sign In Button -->
+    <div class="hidden md:flex items-center gap-4">
+      <button class="px-4 py-1.5 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20 transition">Sign In</button>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none" aria-label="Open menu">
       <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
     </button>
   </div>
-
-  <!-- Mobile overlay -->
-  <div id="overlay" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-10"></div>
-
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="fixed top-0 left-0 h-full w-72 bg-black z-20 transform -translate-x-full transition-transform duration-300 ease-in-out p-6 space-y-4">
-    <!-- Logo inside menu -->
-    <a href="/" class="block font-bold text-lg mb-6">CloudSia</a>
-    <a href="/research.html" class="block px-3 py-2 rounded-md hover:bg-white/10">Research</a>
-    <a href="/safety.html" class="block px-3 py-2 rounded-md hover:bg-white/10">Safety</a>
-    <a href="/products.html" class="block px-3 py-2 rounded-md hover:bg-white/10">Product</a>
-    <a href="/gpt.html" class="block px-3 py-2 rounded-md hover:bg-white/10">GPT Model</a>
-    <a href="/api.html" class="block px-3 py-2 rounded-md hover:bg-white/10">API Platform</a>
-    <a href="/company.html" class="block px-3 py-2 rounded-md hover:bg-white/10">Company</a>
-    <a href="/news.html" class="block px-3 py-2 rounded-md hover:bg-white/10">News</a>
-    <!-- Search bar inside mobile nav -->
-    <input type="text" placeholder="Search" class="w-full px-3 py-2 rounded-md bg-white/10 border border-white/20 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400">
-    <button class="w-full mt-4 px-4 py-2 rounded-md bg-white/10 border border-white/20 hover:bg-white/20">Sign In</button>
-  </div>
-
-  <!-- Background circle -->
-  <div class="absolute -top-32 -left-32 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
 </header>
 
+<!-- Overlay -->
+<div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40"></div>
+
+<!-- Mobile nav drawer -->
+<div id="mobileMenu" class="fixed top-0 left-0 w-72 h-full bg-black z-50 transform -translate-x-full transition-transform duration-300 ease-in-out p-6 space-y-6">
+  
+  <!-- Drawer Logo -->
+  <div class="flex items-center justify-between">
+    <span class="font-bold text-lg text-white">CloudSia</span>
+    <button id="closeMenu" class="text-white md:hidden">
+      ✕
+    </button>
+  </div>
+
+  <!-- Links -->
+  <nav class="space-y-4">
+    <a href="/research.html" class="block text-white text-lg">Research</a>
+    <a href="/safety.html" class="block text-white text-lg">Safety</a>
+    <a href="/products.html" class="block text-white text-lg">Product</a>
+    <a href="/gpt.html" class="block text-white text-lg">GPT Model</a>
+    <a href="/api.html" class="block text-white text-lg">API Platform</a>
+    <a href="/company.html" class="block text-white text-lg">Company</a>
+    <a href="/news.html" class="block text-white text-lg">News</a>
+  </nav>
+
+  <!-- Sign In Button -->
+  <button class="w-full mt-4 px-4 py-2 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20 transition">
+    Sign In
+  </button>
+</div>
+
+<!-- JS -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Logo swap
+  const logoText = document.getElementById("logoText");
+  const logoIcon = document.getElementById("logoIcon");
+  if (logoIcon) logoIcon.classList.add("hidden");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      logoText.classList.add("hidden");
+      logoIcon.classList.remove("hidden");
+    } else {
+      logoIcon.classList.add("hidden");
+      logoText.classList.remove("hidden");
+    }
+  });
+
+  // Mobile drawer
+  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const overlay = document.getElementById("overlay");
+  const closeMenu = document.getElementById("closeMenu");
+
+  function closeDrawer() {
+    mobileMenu.classList.add("-translate-x-full");
+    overlay.classList.add("hidden");
+  }
+
+  if (mobileMenuBtn && mobileMenu && overlay) {
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("-translate-x-full");
+      overlay.classList.toggle("hidden");
+    });
+    overlay.addEventListener("click", closeDrawer);
+    closeMenu.addEventListener("click", closeDrawer);
+  }
+});
+</script>
   <!-- Hero Section -->
   <main class="relative z-10">
     <section class="relative flex flex-col items-center justify-center text-center min-h-screen px-6">
@@ -460,23 +499,6 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </div>
 </footer>
-
-  <script>
-const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-const mobileMenu = document.getElementById("mobileMenu");
-const overlay = document.getElementById("overlay");
-
-mobileMenuBtn.addEventListener("click", () => {
-  mobileMenu.classList.toggle("-translate-x-full");
-  overlay.classList.toggle("hidden");
-});
-
-// Close menu when clicking overlay
-overlay.addEventListener("click", () => {
-  mobileMenu.classList.add("-translate-x-full");
-  overlay.classList.add("hidden");
-});
-  </script>
   
   </body>
 </html>
