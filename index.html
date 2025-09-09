@@ -116,107 +116,174 @@
   <!-- Particle Background -->
   <div id="particles-js"></div>
 
-<!-- HEADER -->
-<header id="mainHeader" class="fixed top-0 left-0 w-full z-50 bg-black backdrop-blur-md border-b border-white/5 shadow-sm transition-all">
+<!-- ===== Header (OpenAI-like) ===== -->
+<header id="mainHeader" class="fixed top-0 left-0 w-full z-50 bg-black text-white shadow-sm">
   <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between w-full">
-    
-    <!-- Logo -->
-    <a href="/" class="flex items-center">
-      <span id="logoText" class="font-bold text-xl text-white">CloudSia</span>
-      <span id="logoIcon" class="hidden w-6 h-6 bg-cyan-400 rounded-full"></span>
+    <!-- Logo (text -> icon swap) -->
+    <a href="/" class="flex items-center gap-3">
+      <span id="logoText" class="font-bold text-xl logo-transition">CloudSia</span>
+      <span id="logoIcon" class="hidden w-6 h-6 rounded-full" style="background:linear-gradient(90deg,#22d3ee,#8b5cf6,#f472b6)"></span>
     </a>
 
-    <!-- Search Bar (Desktop Only) -->
-    <div class="hidden md:flex items-center flex-1 justify-center px-6">
-      <input 
-        type="text" 
-        placeholder="Search..." 
-        class="w-full max-w-md px-4 py-2 rounded-full bg-white/5 text-white placeholder-white/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-      />
+    <!-- Desktop search (centered) -->
+    <div class="hidden md:flex flex-1 justify-center px-6">
+      <input id="desktopSearch"
+             type="search"
+             placeholder="Search"
+             class="w-full max-w-md px-4 py-2 rounded-full bg-white/5 text-white placeholder-white/60 border border-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-400/40" />
     </div>
 
-    <!-- Sign In Button -->
-    <div class="hidden md:flex items-center gap-4">
-      <button class="px-4 py-1.5 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20 transition">Sign In</button>
-    </div>
+    <!-- Right controls: Sign in (desktop) + mobile icons -->
+    <div class="flex items-center gap-3">
+      <!-- mobile search icon -->
+      <button id="mobileSearchBtn" class="md:hidden p-2 rounded-md hover:bg-white/5" aria-label="Search">
+        <!-- magnifier -->
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
+        </svg>
+      </button>
 
-    <!-- Mobile Menu Button -->
-    <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none" aria-label="Open menu">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-    </button>
+      <!-- Sign in (desktop only) -->
+      <button id="signInBtn" class="hidden md:inline-flex px-4 py-1.5 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20 transition">
+        Sign in
+      </button>
+
+      <!-- Mobile menu button -->
+      <button id="mobileMenuBtn" class="p-2 ml-1 rounded-md md:hidden hover:bg-white/5" aria-label="Open menu">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </header>
 
-<!-- Overlay -->
+<!-- Overlay for drawer -->
 <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40"></div>
 
-<!-- Mobile nav drawer -->
-<div id="mobileMenu" class="fixed top-0 left-0 w-72 h-full bg-black z-50 transform -translate-x-full transition-transform duration-300 ease-in-out p-6 space-y-6">
-  
-  <!-- Drawer Logo -->
-  <div class="flex items-center justify-between">
-    <span class="font-bold text-lg text-white">CloudSia</span>
-    <button id="closeMenu" class="text-white md:hidden">
-      ✕
-    </button>
+<!-- Mobile drawer (left) -->
+<aside id="mobileMenu" class="fixed top-0 left-0 w-72 h-full bg-black z-50 transform -translate-x-full transition-transform duration-300 ease-in-out p-6 overflow-auto">
+  <div class="flex items-center justify-between mb-6">
+    <a href="/" class="font-bold text-lg">CloudSia</a>
+    <button id="closeMenu" class="p-2 rounded-md hover:bg-white/5" aria-label="Close menu">✕</button>
   </div>
 
-  <!-- Links -->
   <nav class="space-y-4">
-    <a href="/research.html" class="block text-white text-lg">Research</a>
-    <a href="/safety.html" class="block text-white text-lg">Safety</a>
-    <a href="/products.html" class="block text-white text-lg">Product</a>
-    <a href="/gpt.html" class="block text-white text-lg">GPT Model</a>
-    <a href="/api.html" class="block text-white text-lg">API Platform</a>
-    <a href="/company.html" class="block text-white text-lg">Company</a>
-    <a href="/news.html" class="block text-white text-lg">News</a>
+    <a href="/research.html" class="block text-white text-lg nav-link">Research</a>
+    <a href="/safety.html" class="block text-white text-lg nav-link">Safety</a>
+    <a href="/products.html" class="block text-white text-lg nav-link">Product</a>
+    <a href="/gpt.html" class="block text-white text-lg nav-link">GPT Model</a>
+    <a href="/api.html" class="block text-white text-lg nav-link">API Platform</a>
+    <a href="/company.html" class="block text-white text-lg nav-link">Company</a>
+    <a href="/news.html" class="block text-white text-lg nav-link">News</a>
+    <a href="/community.html" class="block text-white text-lg nav-link">Community</a>
   </nav>
 
-  <!-- Sign In Button -->
-  <button class="w-full mt-4 px-4 py-2 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20 transition">
-    Sign In
-  </button>
+  <div class="mt-6">
+    <input id="mobileDrawerSearch" type="search" placeholder="Search" class="w-full px-3 py-2 rounded-md bg-white/5 border border-white/10 placeholder-white/50 focus:outline-none" />
+  </div>
+
+  <button class="w-full mt-6 px-4 py-2 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20">Sign in</button>
+</aside>
+
+<!-- Mobile search overlay (full-screen) -->
+<div id="searchOverlay" class="hidden fixed inset-0 z-50 flex items-start pt-24 px-6">
+  <div class="absolute inset-0 bg-black/60" id="searchOverlayBg"></div>
+  <div class="relative z-50 w-full max-w-2xl mx-auto">
+    <div class="flex items-center gap-3">
+      <input id="mobileSearchInput" type="search" placeholder="Search" class="w-full px-4 py-3 rounded-full bg-white/5 border border-white/10 text-white placeholder-white/60 focus:outline-none" />
+      <button id="closeSearch" class="p-3 rounded-md hover:bg-white/5 text-white">✕</button>
+    </div>
+  </div>
 </div>
 
-<!-- JS -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Logo swap
-  const logoText = document.getElementById("logoText");
-  const logoIcon = document.getElementById("logoIcon");
-  if (logoIcon) logoIcon.classList.add("hidden");
+<!-- small local CSS (logo transition) -->
+<style>
+  .logo-transition { transition: opacity .25s ease, transform .25s ease; transform-origin: left center; }
+</style>
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
-      logoText.classList.add("hidden");
-      logoIcon.classList.remove("hidden");
-    } else {
-      logoIcon.classList.add("hidden");
-      logoText.classList.remove("hidden");
-    }
+<!-- Combined script: drawer, search overlay, logo swap, nav animations -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Elements
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('overlay');
+  const closeMenu = document.getElementById('closeMenu');
+
+  const mobileSearchBtn = document.getElementById('mobileSearchBtn');
+  const searchOverlay = document.getElementById('searchOverlay');
+  const searchOverlayBg = document.getElementById('searchOverlayBg');
+  const closeSearch = document.getElementById('closeSearch');
+  const mobileSearchInput = document.getElementById('mobileSearchInput');
+
+  const logoText = document.getElementById('logoText');
+  const logoIcon = document.getElementById('logoIcon');
+
+  // Ensure initial logo state
+  if (logoIcon) logoIcon.classList.add('hidden');
+
+  // NAV LINK animation (desktop)
+  document.querySelectorAll('.nav-link').forEach((link, i) => {
+    setTimeout(() => {
+      link.classList.remove('opacity-0','translate-y-3');
+      link.classList.add('opacity-100','translate-y-0','transition-all','duration-500');
+    }, i * 80);
   });
 
-  // Mobile drawer
-  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-  const overlay = document.getElementById("overlay");
-  const closeMenu = document.getElementById("closeMenu");
+  // Logo swap on scroll (text -> icon)
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      if (logoText) {
+        logoText.style.opacity = '0';
+        logoText.style.transform = 'scale(.92)';
+      }
+      setTimeout(() => {
+        logoText?.classList.add('hidden');
+        logoIcon?.classList.remove('hidden');
+      }, 160);
+    } else {
+      logoIcon?.classList.add('hidden');
+      logoText?.classList.remove('hidden');
+      logoText.style.opacity = '1';
+      logoText.style.transform = 'scale(1)';
+    }
+  }, { passive: true });
 
+  // Drawer open / close handlers
+  function openDrawer() {
+    mobileMenu.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+    // prevent body scroll
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+  }
   function closeDrawer() {
-    mobileMenu.classList.add("-translate-x-full");
-    overlay.classList.add("hidden");
+    mobileMenu.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
   }
 
-  if (mobileMenuBtn && mobileMenu && overlay) {
-    mobileMenuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("-translate-x-full");
-      overlay.classList.toggle("hidden");
-    });
-    overlay.addEventListener("click", closeDrawer);
-    closeMenu.addEventListener("click", closeDrawer);
-  }
+  mobileMenuBtn?.addEventListener('click', openDrawer);
+  closeMenu?.addEventListener('click', closeDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+
+  // Mobile search overlay open/close
+  mobileSearchBtn?.addEventListener('click', () => {
+    searchOverlay.classList.remove('hidden');
+    setTimeout(() => mobileSearchInput?.focus(), 70);
+  });
+  closeSearch?.addEventListener('click', () => searchOverlay.classList.add('hidden'));
+  searchOverlayBg?.addEventListener('click', () => searchOverlay.classList.add('hidden'));
+
+  // Close overlays on Esc
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchOverlay?.classList.add('hidden');
+      closeDrawer();
+    }
+  });
 });
 </script>
   <!-- Hero Section -->
