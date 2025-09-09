@@ -119,13 +119,15 @@
 <!-- HEADER -->
 <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 bg-black text-white shadow-sm">
   <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between relative">
+
     <!-- Logo -->
-    <a href="/" class="flex items-center z-20">
-      <span id="logoText" class="font-bold text-xl">CloudSia</span>
+    <a href="/" class="flex items-center">
+      <span id="logoText" class="font-bold text-xl transition-all">CloudSia</span>
+      <span id="logoIcon" class="hidden ml-2 w-6 h-6 bg-cyan-400 rounded-full transition-all"></span>
     </a>
 
-    <!-- Desktop nav -->
-    <nav class="hidden md:flex items-center gap-4 ml-6">
+    <!-- Center nav (desktop only) -->
+    <nav class="hidden md:flex items-center gap-4 mx-auto">
       <a href="/research.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">Research</a>
       <a href="/safety.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">Safety</a>
       <a href="/products.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">Product</a>
@@ -135,18 +137,16 @@
       <a href="/news.html" class="px-3 py-1 rounded-md hover:bg-white/10 transition">News</a>
     </nav>
 
-    <!-- Search bar -->
-    <div class="hidden md:block ml-auto mr-6">
+    <!-- Right section: search + sign in -->
+    <div class="hidden md:flex items-center gap-4 ml-auto">
+      <!-- Search -->
       <input 
         type="text" 
-        placeholder="Search..." 
+        placeholder="Search" 
         class="px-3 py-1 rounded-md bg-white/10 border border-white/20 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
       />
-    </div>
-
-    <!-- Auth -->
-    <div class="hidden md:flex items-center gap-4">
-      <button class="px-4 py-1.5 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20 transition">Sign In</button>
+      <!-- Sign In -->
+      <button class="px-4 py-1.5 rounded-md bg-white/10 border border-white/20 hover:bg-white/20 transition">Sign In</button>
     </div>
 
     <!-- Mobile button -->
@@ -157,11 +157,13 @@
     </button>
   </div>
 
-  <!-- Mobile menu overlay (full screen dark background) -->
+  <!-- Mobile overlay -->
   <div id="overlay" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-10"></div>
 
-  <!-- Mobile menu (slides in from left) -->
+  <!-- Mobile menu -->
   <div id="mobileMenu" class="fixed top-0 left-0 h-full w-72 bg-black z-20 transform -translate-x-full transition-transform duration-300 ease-in-out p-6 space-y-4">
+    <!-- Logo inside menu -->
+    <a href="/" class="block font-bold text-lg mb-6">CloudSia</a>
     <a href="/research.html" class="block px-3 py-2 rounded-md hover:bg-white/10">Research</a>
     <a href="/safety.html" class="block px-3 py-2 rounded-md hover:bg-white/10">Safety</a>
     <a href="/products.html" class="block px-3 py-2 rounded-md hover:bg-white/10">Product</a>
@@ -169,11 +171,12 @@
     <a href="/api.html" class="block px-3 py-2 rounded-md hover:bg-white/10">API Platform</a>
     <a href="/company.html" class="block px-3 py-2 rounded-md hover:bg-white/10">Company</a>
     <a href="/news.html" class="block px-3 py-2 rounded-md hover:bg-white/10">News</a>
-    <input type="text" placeholder="Search..." class="w-full px-3 py-2 rounded-md bg-white/10 border border-white/20 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400">
-    <button class="w-full mt-4 px-4 py-2 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20">Sign In</button>
+    <!-- Search bar inside mobile nav -->
+    <input type="text" placeholder="Search" class="w-full px-3 py-2 rounded-md bg-white/10 border border-white/20 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+    <button class="w-full mt-4 px-4 py-2 rounded-md bg-white/10 border border-white/20 hover:bg-white/20">Sign In</button>
   </div>
 
-  <!-- Background Circle -->
+  <!-- Background circle -->
   <div class="absolute -top-32 -left-32 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
 </header>
 
@@ -227,66 +230,68 @@
     });
   </script>
 
-  <!-- JS - nav animations, logo swap, mobile toggle -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Animate nav links on load
-      document.querySelectorAll(".nav-link").forEach((link, i) => {
-        setTimeout(() => {
-          link.classList.remove("opacity-0", "translate-y-3");
-          link.classList.add("opacity-100", "translate-y-0", "transition-all", "duration-500");
-        }, i * 100);
-      });
+<!-- JS - nav animations, logo swap, mobile toggle -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Animate nav links on load
+  document.querySelectorAll(".nav-link").forEach((link, i) => {
+    setTimeout(() => {
+      link.classList.remove("opacity-0", "translate-y-3");
+      link.classList.add("opacity-100", "translate-y-0", "transition-all", "duration-500");
+    }, i * 100);
+  });
 
-      const logoText = document.getElementById("logoText");
-      const logoIcon = document.getElementById("logoIcon");
+  const logoText = document.getElementById("logoText");
+  const logoIcon = document.getElementById("logoIcon");
 
-      // Ensure initial state
-      if (logoIcon) logoIcon.classList.add("hidden");
-      if (logoText) { logoText.style.opacity = "1"; logoText.style.transform = "scale(1)"; }
+  // Ensure initial state
+  if (logoIcon) logoIcon.classList.add("hidden");
+  if (logoText) {
+    logoText.style.opacity = "1";
+    logoText.style.transform = "scale(1)";
+  }
 
-      // swap logo on scroll (works on all sizes)
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 50) {
-          // hide text with smooth transform then show icon
-          logoText.style.opacity = "0";
-          logoText.style.transform = "scale(.85)";
-          setTimeout(() => {
-            logoText.classList.add("hidden");
-            logoIcon.classList.remove("hidden");
-            logoIcon.style.opacity = "1";
-            logoIcon.style.transform = "scale(1)";
-          }, 200);
-        } else {
-          logoIcon.style.opacity = "0";
-          logoIcon.style.transform = "scale(.85)";
-          setTimeout(() => {
-            logoIcon.classList.add("hidden");
-            logoText.classList.remove("hidden");
-            logoText.style.opacity = "1";
-            logoText.style.transform = "scale(1)";
-          }, 200);
-        }
-      }, { passive: true });
+  // Smooth logo swap on scroll
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      logoText.style.opacity = "0";
+      logoText.style.transform = "scale(.85)";
+      setTimeout(() => {
+        logoText.classList.add("hidden");
+        logoIcon.classList.remove("hidden");
+        logoIcon.style.opacity = "1";
+        logoIcon.style.transform = "scale(1)";
+      }, 200);
+    } else {
+      logoIcon.style.opacity = "0";
+      logoIcon.style.transform = "scale(.85)";
+      setTimeout(() => {
+        logoIcon.classList.add("hidden");
+        logoText.classList.remove("hidden");
+        logoText.style.opacity = "1";
+        logoText.style.transform = "scale(1)";
+      }, 200);
+    }
+  }, { passive: true });
 
-      // mobile menu toggle
-      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-      const mobileMenu = document.getElementById("mobileMenu");
-      mobileMenuBtn?.addEventListener("click", () => {
-        if (mobileMenu.classList.contains("hidden")) {
-          mobileMenu.classList.remove("hidden");
-          // open animation: remove scale-y-0 after small delay
-          setTimeout(() => mobileMenu.classList.remove("scale-y-0"), 10);
-        } else {
-          mobileMenu.classList.add("scale-y-0");
-          mobileMenu.addEventListener("transitionend", function fn(){
-            if (mobileMenu.classList.contains("scale-y-0")) mobileMenu.classList.add("hidden");
-            mobileMenu.removeEventListener('transitionend', fn);
-          });
-        }
-      });
+  // --- NEW: Mobile menu (OpenAI style left drawer) ---
+  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const overlay = document.getElementById("overlay");
+
+  if (mobileMenuBtn && mobileMenu && overlay) {
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("-translate-x-full");
+      overlay.classList.toggle("hidden");
     });
-    </script>
+
+    overlay.addEventListener("click", () => {
+      mobileMenu.classList.add("-translate-x-full");
+      overlay.classList.add("hidden");
+    });
+  }
+});
+</script>
 <!-- Image Left, Text Right -->
 <section class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
   <div>
