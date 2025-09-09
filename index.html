@@ -337,68 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   </script>
 
-<!-- JS - nav animations, logo swap, mobile toggle -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Animate nav links on load
-  document.querySelectorAll(".nav-link").forEach((link, i) => {
-    setTimeout(() => {
-      link.classList.remove("opacity-0", "translate-y-3");
-      link.classList.add("opacity-100", "translate-y-0", "transition-all", "duration-500");
-    }, i * 100);
-  });
 
-  const logoText = document.getElementById("logoText");
-  const logoIcon = document.getElementById("logoIcon");
-
-  // Ensure initial state
-  if (logoIcon) logoIcon.classList.add("hidden");
-  if (logoText) {
-    logoText.style.opacity = "1";
-    logoText.style.transform = "scale(1)";
-  }
-
-  // Smooth logo swap on scroll
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
-      logoText.style.opacity = "0";
-      logoText.style.transform = "scale(.85)";
-      setTimeout(() => {
-        logoText.classList.add("hidden");
-        logoIcon.classList.remove("hidden");
-        logoIcon.style.opacity = "1";
-        logoIcon.style.transform = "scale(1)";
-      }, 200);
-    } else {
-      logoIcon.style.opacity = "0";
-      logoIcon.style.transform = "scale(.85)";
-      setTimeout(() => {
-        logoIcon.classList.add("hidden");
-        logoText.classList.remove("hidden");
-        logoText.style.opacity = "1";
-        logoText.style.transform = "scale(1)";
-      }, 200);
-    }
-  }, { passive: true });
-
-  // --- NEW: Mobile menu (OpenAI style left drawer) ---
-  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-  const overlay = document.getElementById("overlay");
-
-  if (mobileMenuBtn && mobileMenu && overlay) {
-    mobileMenuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("-translate-x-full");
-      overlay.classList.toggle("hidden");
-    });
-
-    overlay.addEventListener("click", () => {
-      mobileMenu.classList.add("-translate-x-full");
-      overlay.classList.add("hidden");
-    });
-  }
-});
-</script>
 <!-- Image Left, Text Right -->
 <section class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
   <div>
