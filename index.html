@@ -202,7 +202,6 @@
   .logo-transition { transition: opacity .25s ease, transform .25s ease; transform-origin: left center; }
 </style>
 
-<!-- Combined script: drawer, search overlay, logo swap, nav animations -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
@@ -231,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, i * 80);
   });
 
-  // Logo swap on scroll (text -> icon)
+  // Logo swap on scroll
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       if (logoText) {
@@ -265,11 +264,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
+  // Attach events
   mobileMenuBtn?.addEventListener('click', openDrawer);
   closeMenu?.addEventListener('click', closeDrawer);
   overlay?.addEventListener('click', closeDrawer);
 
-  // Mobile search overlay open/close
+  // Mobile search overlay
   mobileSearchBtn?.addEventListener('click', () => {
     searchOverlay.classList.remove('hidden');
     setTimeout(() => mobileSearchInput?.focus(), 70);
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-  </script>
+</script>
   
   <!-- Hero Section -->
   <main class="relative z-10">
