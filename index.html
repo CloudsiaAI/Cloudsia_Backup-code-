@@ -567,6 +567,23 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </div>
 </footer>
+
+  <!-- Mobile Menu Drawer -->
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+
+<aside id="mobileMenu" class="fixed top-0 left-0 h-full w-64 bg-black text-white transform -translate-x-full transition-transform duration-300 z-50">
+  <div class="flex items-center justify-between px-4 py-4 border-b border-gray-800">
+    <span class="text-lg font-bold">CloudSia</span>
+    <button id="closeMenu" class="text-gray-400 hover:text-white">&times;</button>
+  </div>
+  <nav class="flex flex-col p-4 space-y-4">
+    <a href="/" class="hover:text-gray-300">Home</a>
+    <a href="/sora.html" class="hover:text-gray-300">Sora</a>
+    <a href="/company.html" class="hover:text-gray-300">Company</a>
+    <a href="/blog.html" class="hover:text-gray-300">Blog</a>
+    <a href="/vision.html" class="hover:text-gray-300">Vision</a>
+  </nav>
+</aside>
   
   </body>
 </html>
