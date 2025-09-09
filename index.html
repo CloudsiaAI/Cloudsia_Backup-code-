@@ -161,29 +161,29 @@
 <!-- Overlay for drawer -->
 <div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40"></div>
 
-<!-- Mobile drawer (left) -->
-<aside id="mobileMenu" class="fixed top-0 left-0 w-72 h-full bg-black z-50 transform -translate-x-full transition-transform duration-300 ease-in-out p-6 overflow-auto">
-  <div class="flex items-center justify-between mb-6">
-    <a href="/" class="font-bold text-lg">CloudSia</a>
-    <button id="closeMenu" class="p-2 rounded-md hover:bg-white/5" aria-label="Close menu">✕</button>
+<!-- Mobile drawer -->
+<aside id="mobileMenu" class="fixed inset-y-0 left-0 w-80 bg-black text-white transform -translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col">
+  <div class="p-6 flex justify-between items-center">
+    <span class="text-xl font-semibold">CloudSia</span>
+    <button id="closeMenu" class="text-gray-400 hover:text-white text-2xl">✕</button>
   </div>
-
-  <nav class="space-y-4">
-    <a href="/research.html" class="block text-white text-lg nav-link">Research</a>
-    <a href="/safety.html" class="block text-white text-lg nav-link">Safety</a>
-    <a href="/products.html" class="block text-white text-lg nav-link">Product</a>
-    <a href="/gpt.html" class="block text-white text-lg nav-link">GPT Model</a>
-    <a href="/api.html" class="block text-white text-lg nav-link">API Platform</a>
-    <a href="/company.html" class="block text-white text-lg nav-link">Company</a>
-    <a href="/news.html" class="block text-white text-lg nav-link">News</a>
-    <a href="/community.html" class="block text-white text-lg nav-link">Community</a>
+  <nav class="flex-1 px-6 space-y-4 text-lg">
+    <a href="/research.html" class="block hover:text-gray-300">Research</a>
+    <a href="/safety.html" class="block hover:text-gray-300">Safety</a>
+    <a href="/product.html" class="block hover:text-gray-300">Product</a>
+    <a href="/gpt.html" class="block hover:text-gray-300">GPT Model</a>
+    <a href="/api.html" class="block hover:text-gray-300">API Platform</a>
+    <a href="/company.html" class="block hover:text-gray-300">Company</a>
+    <a href="/news.html" class="block hover:text-gray-300">News</a>
+    <a href="/community.html" class="block hover:text-gray-300">Community</a>
   </nav>
 
-  <div class="mt-6">
-    <input id="mobileDrawerSearch" type="search" placeholder="Search" class="w-full px-3 py-2 rounded-md bg-white/5 border border-white/10 placeholder-white/50 focus:outline-none" />
+  <!-- Fixed Sign in button at bottom-right -->
+  <div class="absolute bottom-6 right-6">
+    <button class="px-4 py-2 rounded-md bg-white text-black hover:bg-gray-200">
+      Sign in
+    </button>
   </div>
-
-  <button class="w-full mt-6 px-4 py-2 rounded-md bg-white/10 text-white border border-white/20 hover:bg-white/20">Sign in</button>
 </aside>
 
 <!-- Mobile search overlay (full-screen) -->
