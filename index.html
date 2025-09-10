@@ -148,16 +148,12 @@
         Sign in
       </button>
 
-      <!-- Grid-of-squares button like OpenAI -->
-<button id="mobileMenuBtn"
-  class="p-2 ml-1 rounded-xl md:hidden bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-transform duration-150 hover:scale-105"
-  aria-label="Open menu">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-    <rect x="3" y="3" width="6" height="6" rx="1"/>
-    <rect x="15" y="3" width="6" height="6" rx="1"/>
-    <rect x="3" y="15" width="6" height="6" rx="1"/>
-    <rect x="15" y="15" width="6" height="6" rx="1"/>
-  </svg>
+<!-- Mobile menu button -->
+<button id="mobileMenuBtn" class="flex flex-col items-end justify-center w-8 h-8 space-y-1 focus:outline-none">
+  <!-- Top line -->
+  <span class="block w-6 h-0.5 bg-white rounded"></span>
+  <!-- Bottom line (shorter) -->
+  <span class="block w-4 h-0.5 bg-white rounded"></span>
 </button>
       
     </div>
