@@ -161,15 +161,14 @@
   </div>
 </header>
 
-<!-- Overlay for drawer -->
-<div id="overlay" class="hidden fixed inset-0 bg-black/50 z-40"></div>
+<!-- Overlay for drawer (blurred) -->
+<div id="overlay" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
 
 <!-- Mobile drawer -->
 <aside id="mobileMenu" 
   class="fixed top-16 left-0 h-[calc(100%-4rem)] w-80 bg-black text-white 
-         transform -translate-x-full transition-transform duration-300 ease-in-out z-40 flex flex-col">
+         transform -translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col">
 
-  <!-- Navigation links -->
   <nav class="flex-1 px-6 space-y-4 text-lg mt-6">
     <a href="/research.html" class="block hover:text-gray-300">Research</a>
     <a href="/safety.html" class="block hover:text-gray-300">Safety</a>
@@ -178,16 +177,15 @@
     <a href="/api.html" class="block hover:text-gray-300">API Platform</a>
     <a href="/company.html" class="block hover:text-gray-300">Company</a>
     <a href="/news.html" class="block hover:text-gray-300">News</a>
-    <a href="/community.html" class="block hover:text-gray-300">Community</a>
   </nav>
 
-  <!-- Fixed Sign in button at bottom-right -->
   <div class="absolute bottom-6 right-6">
     <button class="px-4 py-2 rounded-md bg-white text-black hover:bg-gray-200">
       Sign in
     </button>
   </div>
 </aside>
+  
 <!-- Mobile search overlay (full-screen) -->
 <div id="searchOverlay" class="hidden fixed inset-0 z-50 flex items-start pt-24 px-6">
   <div class="absolute inset-0 bg-black/60" id="searchOverlayBg"></div>
@@ -525,6 +523,43 @@ document.addEventListener('DOMContentLoaded', () => {
     <a href="/vision.html" class="hover:text-gray-300">Vision</a>
   </nav>
 </aside>
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('overlay');
+
+  function openDrawer() {
+    mobileMenu.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    mobileMenu.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  // Toggle with button
+  mobileMenuBtn?.addEventListener('click', () => {
+    if (mobileMenu.classList.contains('-translate-x-full')) {
+      openDrawer();
+    } else {
+      closeDrawer();
+    }
+  });
+
+  // Close with overlay click
+  overlay?.addEventListener('click', closeDrawer);
+
+  // Close on Esc
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDrawer();
+  });
+});
+  </script>
   
   </body>
 </html>
