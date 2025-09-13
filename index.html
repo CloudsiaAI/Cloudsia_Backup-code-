@@ -264,10 +264,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
-  // Attach events
-  mobileMenuBtn?.addEventListener('click', openDrawer);
-  closeMenu?.addEventListener('click', closeDrawer);
-  overlay?.addEventListener('click', closeDrawer);
+// Attach events - toggle drawer on button click
+mobileMenuBtn?.addEventListener('click', () => {
+  if (mobileMenu.classList.contains('-translate-x-full')) {
+    openDrawer();
+  } else {
+    closeDrawer();
+  }
+});
+
+// keep close button and overlay closing
+closeMenu?.addEventListener('click', closeDrawer);
+overlay?.addEventListener('click', closeDrawer);
 
   // Mobile search overlay
   mobileSearchBtn?.addEventListener('click', () => {
@@ -523,43 +531,6 @@ document.addEventListener('DOMContentLoaded', () => {
     <a href="/vision.html" class="hover:text-gray-300">Vision</a>
   </nav>
 </aside>
-
-  <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const overlay = document.getElementById('overlay');
-
-  function openDrawer() {
-    mobileMenu.classList.remove('-translate-x-full');
-    overlay.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeDrawer() {
-    mobileMenu.classList.add('-translate-x-full');
-    overlay.classList.add('hidden');
-    document.body.style.overflow = '';
-  }
-
-  // Toggle with button
-  mobileMenuBtn?.addEventListener('click', () => {
-    if (mobileMenu.classList.contains('-translate-x-full')) {
-      openDrawer();
-    } else {
-      closeDrawer();
-    }
-  });
-
-  // Close with overlay click
-  overlay?.addEventListener('click', closeDrawer);
-
-  // Close on Esc
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeDrawer();
-  });
-});
-  </script>
   
   </body>
 </html>
