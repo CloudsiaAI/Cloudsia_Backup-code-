@@ -9,38 +9,37 @@
   <script type="module" src="/firebase-config.js"></script>
 
   <style>
-    /* Floating label input */
     .field {
       position: relative;
-    }
-    .field input {
-      background: transparent;
-      color: white;
+      margin-bottom: 24px;
     }
     .field label {
       position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
+      top: -8px;
+      left: 18px;
       background: black;
       padding: 0 6px;
-      color: #9ca3af;
-      font-size: 0.875rem;
-      pointer-events: none;
-      transition: all 0.2s ease;
-    }
-    .field input:focus + label,
-    .field input:not(:placeholder-shown) + label {
-      top: -8px;
       font-size: 0.75rem;
+      color: #d1d5db;
+    }
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 9999px;
+      background: transparent;
+      border: 1px solid #6b7280;
       color: white;
+      outline: none;
+    }
+    .field input:focus {
+      border-color: white;
     }
   </style>
 </head>
 
 <body class="bg-black text-white min-h-screen flex flex-col">
 
-  <!-- Main content -->
+  <!-- Main -->
   <main class="flex-1 max-w-md mx-auto px-6 pt-24 w-full">
 
     <p class="text-center text-sm font-medium mb-4">
@@ -52,34 +51,21 @@
     </h1>
 
     <!-- Email -->
-    <div class="field mb-6">
-      <input
-        id="email"
-        type="email"
-        required
-        placeholder=" "
-        class="w-full px-4 py-3 rounded-full border border-gray-500 focus:outline-none focus:border-white"
-      />
+    <div class="field">
       <label>Email address</label>
+      <input id="email" type="email" required />
     </div>
 
     <!-- Password -->
-    <div class="field mb-6 hidden" id="passwordWrap">
-      <input
-        id="password"
-        type="password"
-        required
-        placeholder=" "
-        class="w-full px-4 py-3 rounded-full border border-gray-500 focus:outline-none focus:border-white"
-      />
+    <div class="field hidden" id="passwordWrap">
       <label>Password</label>
+      <input id="password" type="password" required />
     </div>
 
     <!-- Continue -->
     <button
       id="continueBtn"
-      class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition"
-    >
+      class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition">
       Continue
     </button>
 
@@ -121,8 +107,8 @@
 
   </main>
 
-  <!-- Footer fixed to bottom -->
-  <footer class="text-center text-xs text-gray-500 py-6">
+  <!-- Footer (moved up) -->
+  <footer class="text-center text-xs text-gray-500 pb-8">
     <a href="#" class="hover:underline">Terms of Use</a>
     <span class="mx-2">|</span>
     <a href="#" class="hover:underline">Privacy Policy</a>
@@ -130,13 +116,19 @@
 
   <!-- Auth Logic -->
   <script type="module">
-    import { auth, googleProvider, githubProvider } from './firebase-config.js';
+    import { auth } from './firebase-config.js';
     import {
       signInWithEmailAndPassword,
       createUserWithEmailAndPassword,
       signInWithPopup,
+      GoogleAuthProvider,
+      GithubAuthProvider,
       OAuthProvider
     } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+
+    const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
+    const microsoftProvider = new OAuthProvider('microsoft.com');
 
     const email = document.getElementById('email');
     const password = document.getElementById('password');
@@ -192,8 +184,7 @@
     };
 
     document.getElementById('microsoftSignIn').onclick = async () => {
-      const provider = new OAuthProvider('microsoft.com');
-      await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, microsoftProvider);
       window.location.href = '/';
     };
   </script>
