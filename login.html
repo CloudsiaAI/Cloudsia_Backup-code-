@@ -5,91 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign in — Orecube</title>
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Firebase config -->
   <script type="module" src="/firebase-config.js"></script>
 </head>
 
-<body class="bg-black min-h-screen flex items-center justify-center text-black">
+<body class="bg-black text-white min-h-screen">
 
-  <div class="w-full max-w-sm px-6">
-    
-    <!-- Logo / Title -->
-    <div class="text-center mb-8">
-      <h1 class="text-white text-sm font-medium mb-2">Orecube Platform</h1>
-      <h2 id="pageTitle" class="text-3xl font-semibold text-white">
-        Welcome back
-      </h2>
+  <!-- Main wrapper (NOT a box) -->
+  <main class="max-w-md mx-auto px-6 pt-24">
+
+    <!-- Platform text -->
+    <p class="text-center text-sm font-medium mb-4">
+      Orecube Platform
+    </p>
+
+    <!-- Title -->
+    <h1 id="pageTitle" class="text-center text-3xl font-semibold mb-10">
+      Welcome back
+    </h1>
+
+    <!-- Email -->
+    <input
+      id="email"
+      type="email"
+      placeholder="Email address"
+      class="w-full mb-4 px-4 py-3 rounded-full text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
+    />
+
+    <!-- Password (step 2) -->
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      class="w-full mb-4 px-4 py-3 rounded-full text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black hidden"
+    />
+
+    <!-- Continue -->
+    <button
+      id="continueBtn"
+      class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition"
+    >
+      Continue
+    </button>
+
+    <!-- Switch -->
+    <p class="text-center text-sm text-gray-400 mt-4">
+      <span id="switchText">Don’t have an account?</span>
+      <button id="toggleMode" class="text-blue-400 hover:underline ml-1">
+        Sign up
+      </button>
+    </p>
+
+    <!-- Divider -->
+    <div class="flex items-center my-10">
+      <div class="flex-1 h-px bg-gray-700"></div>
+      <span class="px-3 text-gray-400 text-xs">OR</span>
+      <div class="flex-1 h-px bg-gray-700"></div>
     </div>
 
-    <!-- Auth Card -->
-    <div class="bg-white rounded-2xl p-6 shadow-lg">
-      
-      <!-- Email -->
-      <input
-        id="email"
-        type="email"
-        placeholder="Email address"
-        class="w-full mb-4 px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black"
-        required
-      />
-
-      <!-- Password (hidden first) -->
-      <input
-        id="password"
-        type="password"
-        placeholder="Password"
-        class="w-full mb-4 px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black hidden"
-      />
-
-      <!-- Continue -->
+    <!-- OAuth -->
+    <div class="space-y-3">
       <button
-        id="continueBtn"
-        class="w-full py-3 rounded-full bg-black text-white font-medium hover:bg-gray-900 transition"
+        id="googleSignIn"
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition"
       >
-        Continue
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
+        Continue with Google
       </button>
 
-      <!-- Switch login/signup -->
-      <p class="text-center text-sm text-gray-600 mt-4">
-        <span id="switchText">Don’t have an account?</span>
-        <button id="toggleMode" class="text-blue-600 hover:underline ml-1">
-          Sign up
-        </button>
-      </p>
-
-      <!-- Divider -->
-      <div class="flex items-center my-6">
-        <div class="flex-1 h-px bg-gray-200"></div>
-        <span class="px-3 text-gray-400 text-xs">OR</span>
-        <div class="flex-1 h-px bg-gray-200"></div>
-      </div>
-
-      <!-- OAuth -->
-      <div class="space-y-3">
-        <button id="googleSignIn"
-          class="w-full flex items-center justify-center gap-3 py-3 rounded-full border border-gray-300 hover:bg-gray-100 transition">
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
-          Continue with Google
-        </button>
-
-        <button id="githubSignIn"
-          class="w-full flex items-center justify-center gap-3 py-3 rounded-full border border-gray-300 hover:bg-gray-100 transition">
-          <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-5 h-5">
-          Continue with GitHub
-        </button>
-      </div>
+      <button
+        id="githubSignIn"
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition"
+      >
+        <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-5 h-5">
+        Continue with GitHub
+      </button>
     </div>
 
     <!-- Footer -->
-    <div class="text-center text-xs text-gray-400 mt-6">
+    <div class="text-center text-xs text-gray-500 mt-16">
       <a href="#" class="hover:underline">Terms of Use</a>
       <span class="mx-2">|</span>
       <a href="#" class="hover:underline">Privacy Policy</a>
     </div>
-  </div>
+
+  </main>
 
   <!-- Logic -->
   <script type="module">
@@ -100,8 +100,8 @@
       signInWithPopup
     } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
     const continueBtn = document.getElementById('continueBtn');
     const toggleMode = document.getElementById('toggleMode');
     const pageTitle = document.getElementById('pageTitle');
@@ -110,14 +110,11 @@
     let isSignup = false;
     let step = 1;
 
-    continueBtn.addEventListener('click', async () => {
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-
-      if (!email) return alert('Enter email');
+    continueBtn.onclick = async () => {
+      if (!email.value) return alert("Enter email");
 
       if (step === 1) {
-        passwordInput.classList.remove('hidden');
+        password.classList.remove('hidden');
         step = 2;
         continueBtn.textContent = isSignup ? 'Create account' : 'Sign in';
         return;
@@ -125,25 +122,25 @@
 
       try {
         if (isSignup) {
-          await createUserWithEmailAndPassword(auth, email, password);
+          await createUserWithEmailAndPassword(auth, email.value, password.value);
         } else {
-          await signInWithEmailAndPassword(auth, email, password);
+          await signInWithEmailAndPassword(auth, email.value, password.value);
         }
         window.location.href = '/';
-      } catch (err) {
-        alert(err.message);
+      } catch (e) {
+        alert(e.message);
       }
-    });
+    };
 
-    toggleMode.addEventListener('click', () => {
+    toggleMode.onclick = () => {
       isSignup = !isSignup;
       pageTitle.textContent = isSignup ? 'Create an account' : 'Welcome back';
       switchText.textContent = isSignup ? 'Already have an account?' : 'Don’t have an account?';
       toggleMode.textContent = isSignup ? 'Log in' : 'Sign up';
       continueBtn.textContent = 'Continue';
-      passwordInput.classList.add('hidden');
+      password.classList.add('hidden');
       step = 1;
-    });
+    };
 
     document.getElementById('googleSignIn').onclick = async () => {
       await signInWithPopup(auth, googleProvider);
@@ -155,5 +152,6 @@
       window.location.href = '/';
     };
   </script>
+
 </body>
 </html>
