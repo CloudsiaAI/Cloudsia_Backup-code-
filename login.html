@@ -1,190 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign in — Orecube</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orecube Auth</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script type="module" src="/firebase-config.js"></script>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<style>
-.input {
-  width: 100%;
-  padding: 14px 18px;
-  border-radius: 9999px;
-  border: 1px solid #d1d5db;
-  background: transparent;
-  outline: none;
-}
-.input:focus {
-  border-color: black;
-}
-.label {
-  font-size: 12px;
-  color: #6b7280;
-}
-.error {
-  color: #dc2626;
-  font-size: 13px;
-  margin-top: 6px;
-}
-</style>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Inter, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: #000;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 24px;
+    }
+
+    .logo {
+      font-weight: 600;
+      margin-bottom: 32px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    p.sub {
+      color: #555;
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .form {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    /* Floating label input */
+    .field {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 18px 16px;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      font-size: 15px;
+      background: transparent;
+      outline: none;
+    }
+
+    .field label {
+      position: absolute;
+      top: -8px;
+      left: 18px;
+      font-size: 12px;
+      background: #fff;
+      padding: 0 6px;
+      color: #777;
+    }
+
+    .error {
+      color: #d00;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 999px;
+      border: none;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #000;
+      color: #fff;
+      margin-top: 8px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+    }
+
+    .link {
+      color: #0066ff;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 16px;
+      cursor: pointer;
+    }
+
+    .or {
+      text-align: center;
+      margin: 20px 0;
+      color: #777;
+      font-size: 13px;
+    }
+
+    .socials button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      background: #fff;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: auto;
+      font-size: 13px;
+      color: #777;
+      padding-top: 24px;
+    }
+
+    footer a {
+      color: #555;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 
-<body class="bg-black text-white min-h-screen flex flex-col">
+<body>
+  <div class="page">
+    <div class="logo">Orecube Platform</div>
 
-<main class="flex-1 max-w-md mx-auto w-full px-6 pt-24">
+    <!-- STEP 1: EMAIL -->
+    <div id="step-email" class="form">
+      <h1>Sign in</h1>
 
-<p class="text-center text-sm font-medium mb-4">Orecube Platform</p>
+      <div class="field">
+        <label>Email address</label>
+        <input id="email" type="email" />
+        <div id="emailError" class="error hidden">Email is required</div>
+      </div>
 
-<h1 id="title" class="text-center text-3xl font-semibold mb-10">
-  Welcome back
-</h1>
+      <button class="btn btn-primary" onclick="goPassword()">Continue</button>
 
-<!-- EMAIL STEP -->
-<section id="emailStep">
-  <label class="label">Email address</label>
-  <input id="email" class="input mt-2" type="email">
-  <p id="emailError" class="error hidden"></p>
+      <div class="or">OR</div>
 
-  <button id="emailContinue"
-    class="mt-8 w-full py-3 rounded-full bg-white text-black font-medium">
-    Continue
-  </button>
-</section>
+      <div class="socials">
+        <button onclick="loginGoogle()">Continue with Google</button>
+        <button onclick="loginGithub()">Continue with GitHub</button>
+        <button onclick="loginMicrosoft()">Continue with Microsoft</button>
+      </div>
+    </div>
 
-<!-- PASSWORD STEP -->
-<section id="passwordStep" class="hidden">
+    <!-- STEP 2: PASSWORD -->
+    <div id="step-password" class="form hidden">
+      <h1>Enter your password</h1>
+      <p class="sub" id="showEmail"></p>
 
-  <p class="text-sm text-gray-400 mb-2">
-    <span id="emailPreview"></span>
-    <button id="editEmail" class="text-blue-400 ml-2">Edit</button>
-  </p>
+      <div class="field">
+        <label>Password</label>
+        <input id="password" type="password"/>
+        <div id="passwordError" class="error hidden">Incorrect password</div>
+      </div>
 
-  <label class="label">Password</label>
-  <input id="password" class="input mt-2" type="password">
-  <p id="passwordError" class="error hidden"></p>
+      <div class="link" onclick="forgotPassword()">Forgot password?</div>
 
-  <button id="passwordContinue"
-    class="mt-8 w-full py-3 rounded-full bg-white text-black font-medium">
-    Continue
-  </button>
+      <button class="btn btn-primary" onclick="goVerify()">Continue</button>
+    </div>
 
-  <button id="forgotPassword"
-    class="mt-4 text-sm text-blue-400">
-    Forgot password?
-  </button>
-</section>
+    <!-- STEP 3: VERIFICATION -->
+    <div id="step-code" class="form hidden">
+      <h1>Check your inbox</h1>
+      <p class="sub">Enter the verification code we sent</p>
 
-<!-- CODE STEP -->
-<section id="codeStep" class="hidden">
+      <div class="field">
+        <label>Code</label>
+        <input id="code" type="text"/>
+        <div id="codeError" class="error hidden">Invalid verification code</div>
+      </div>
 
-  <p class="text-center text-gray-400 mb-4">
-    Enter the verification code sent to<br>
-    <span id="codeEmail"></span>
-  </p>
+      <button class="btn btn-primary" onclick="verifyCode()">Continue</button>
 
-  <label class="label">Code</label>
-  <input id="code" class="input mt-2">
-  <p id="codeError" class="error hidden"></p>
+      <div class="link" onclick="resendCode()">Resend email</div>
+    </div>
 
-  <button id="codeContinue"
-    class="mt-8 w-full py-3 rounded-full bg-white text-black font-medium">
-    Continue
-  </button>
+    <footer>
+      <a href="#">Terms of Use</a> |
+      <a href="#">Privacy Policy</a>
+    </footer>
+  </div>
 
-  <button id="resendCode" class="mt-4 text-sm text-gray-400">
-    Resend email
-  </button>
-</section>
+  <script>
+    const emailInput = document.getElementById("email");
 
-<!-- OAUTH -->
-<div class="mt-14 space-y-3">
-  <button id="google" class="w-full py-3 rounded-full bg-white text-black">
-    Continue with Google
-  </button>
-  <button id="microsoft" class="w-full py-3 rounded-full bg-white text-black">
-    Continue with Microsoft
-  </button>
-  <button id="github" class="w-full py-3 rounded-full bg-white text-black">
-    Continue with GitHub
-  </button>
-</div>
+    function goPassword() {
+      if (!emailInput.value) {
+        document.getElementById("emailError").classList.remove("hidden");
+        return;
+      }
+      document.getElementById("emailError").classList.add("hidden");
+      document.getElementById("step-email").classList.add("hidden");
+      document.getElementById("step-password").classList.remove("hidden");
+      document.getElementById("showEmail").innerText = emailInput.value;
+    }
 
-</main>
+    function goVerify() {
+      const pass = document.getElementById("password").value;
+      if (pass !== "123456") {
+        document.getElementById("passwordError").classList.remove("hidden");
+        return;
+      }
+      document.getElementById("passwordError").classList.add("hidden");
+      document.getElementById("step-password").classList.add("hidden");
+      document.getElementById("step-code").classList.remove("hidden");
+    }
 
-<footer class="text-center text-xs text-gray-500 pb-8">
-  <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a>
-</footer>
+    function verifyCode() {
+      const code = document.getElementById("code").value;
+      if (code !== "000000") {
+        document.getElementById("codeError").classList.remove("hidden");
+        return;
+      }
+      alert("Login successful");
+    }
 
-<!-- AUTH LOGIC -->
-<script type="module">
-import { auth } from './firebase-config.js';
-import {
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signInWithPopup,
-  GoogleAuthProvider,
-  GithubAuthProvider,
-  OAuthProvider
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+    function forgotPassword() {
+      alert("Password reset flow here");
+    }
 
-const googleProvider = new GoogleAuthProvider();
-const githubProvider = new GithubAuthProvider();
-const microsoftProvider = new OAuthProvider('microsoft.com');
+    function resendCode() {
+      alert("Verification code resent");
+    }
 
-const emailStep = document.getElementById('emailStep');
-const passwordStep = document.getElementById('passwordStep');
-const codeStep = document.getElementById('codeStep');
+    function loginGoogle() {
+      alert("Google OAuth");
+    }
 
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
+    function loginGithub() {
+      alert("GitHub OAuth");
+    }
 
-document.getElementById('emailContinue').onclick = () => {
-  if (!emailInput.value) {
-    showError('emailError', 'Email is required');
-    return;
-  }
-  emailStep.classList.add('hidden');
-  passwordStep.classList.remove('hidden');
-  document.getElementById('emailPreview').textContent = emailInput.value;
-};
-
-document.getElementById('editEmail').onclick = () => {
-  passwordStep.classList.add('hidden');
-  emailStep.classList.remove('hidden');
-};
-
-document.getElementById('passwordContinue').onclick = async () => {
-  try {
-    await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
-    window.location.href = '/';
-  } catch {
-    showError('passwordError', 'Incorrect email address or password');
-  }
-};
-
-document.getElementById('forgotPassword').onclick = async () => {
-  await sendPasswordResetEmail(auth, emailInput.value);
-  alert('Password reset email sent');
-};
-
-document.getElementById('google').onclick = () =>
-  signInWithPopup(auth, googleProvider).then(() => location.href = '/');
-
-document.getElementById('github').onclick = () =>
-  signInWithPopup(auth, githubProvider).then(() => location.href = '/');
-
-document.getElementById('microsoft').onclick = () =>
-  signInWithPopup(auth, microsoftProvider).then(() => location.href = '/');
-
-function showError(id, msg) {
-  const el = document.getElementById(id);
-  el.textContent = msg;
-  el.classList.remove('hidden');
-}
-</script>
-
+    function loginMicrosoft() {
+      alert("Microsoft OAuth");
+    }
+  </script>
 </body>
-</html>
+  </html>
