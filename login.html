@@ -2,43 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sign in · Orecube</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in — Orecube</title>
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font for logo only -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+  <script type="module" src="/firebase-config.js"></script>
 
   <style>
-    .logo-font { font-family: 'Space Grotesk', sans-serif; }
+    .field {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .field label {
+      position: absolute;
+      top: -8px;
+      left: 14px;
+      background: black;
+      padding: 0 6px;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid #4b5563;
+      color: white;
+      outline: none;
+    }
+    .field input:focus {
+      border-color: #22d3ee;
+    }
   </style>
 </head>
 
-<body class="min-h-screen bg-black text-white flex items-center justify-center">
+<body class="bg-black text-white min-h-screen flex items-center justify-center">
 
   <div class="w-full max-w-sm px-6">
 
-    <!-- Logo -->
-    <div class="flex justify-center mb-8">
-      <span class="logo-font text-3xl font-semibold">Orecube</span>
+    <!-- Brand -->
+    <p class="text-center text-sm font-medium text-gray-300 mb-3">
+      Orecube Platform
+    </p>
+
+    <h1 id="pageTitle" class="text-center text-3xl font-semibold mb-8">
+      Welcome back
+    </h1>
+
+    <!-- Email -->
+    <div class="field">
+      <label>Email address</label>
+      <input id="email" type="email" />
     </div>
 
-    <!-- AUTH APP -->
-    <div id="auth-app"></div>
+    <!-- Password -->
+    <div class="field hidden" id="passwordWrap">
+      <label>Password</label>
+      <input id="password" type="password" />
+    </div>
 
-    <!-- Terms -->
-    <p class="text-xs text-gray-400 text-center mt-6">
-      By continuing, you agree to our
-      <a href="/terms.html" class="underline">Terms</a> &
-      <a href="/privacy.html" class="underline">Privacy Policy</a>
+    <!-- Continue -->
+    <button
+      id="continueBtn"
+      class="w-full py-3 rounded-md bg-white text-black font-medium hover:bg-gray-200 transition">
+      Continue
+    </button>
+
+    <!-- Switch -->
+    <p class="text-center text-sm text-gray-400 mt-4">
+      <span id="switchText">Don’t have an account?</span>
+      <button id="toggleMode" class="text-cyan-400 hover:underline ml-1">
+        Sign up
+      </button>
+    </p>
+
+    <!-- Divider -->
+    <div class="flex items-center my-8">
+      <div class="flex-1 h-px bg-gray-700"></div>
+      <span class="px-3 text-gray-400 text-xs">OR</span>
+      <div class="flex-1 h-px bg-gray-700"></div>
+    </div>
+
+    <!-- OAuth -->
+    <div class="space-y-3">
+      <button id="googleSignIn"
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-md bg-white text-black hover:bg-gray-200 transition">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
+        Continue with Google
+      </button>
+
+      <button id="microsoftSignIn"
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-md bg-white text-black hover:bg-gray-200 transition">
+        <img src="https://www.svgrepo.com/show/452062/microsoft.svg" class="w-5 h-5">
+        Continue with Microsoft
+      </button>
+
+      <button id="githubSignIn"
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-md bg-white text-black hover:bg-gray-200 transition">
+        <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-5 h-5">
+        Continue with GitHub
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <p class="text-center text-xs text-gray-500 mt-8">
+      <a href="#" class="hover:underline">Terms</a>
+      ·
+      <a href="#" class="hover:underline">Privacy</a>
     </p>
 
   </div>
 
-<script type="module" src="./auth.js"></script>
 </body>
 </html>
