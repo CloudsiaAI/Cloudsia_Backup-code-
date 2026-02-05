@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign in — Orecube</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,74 +11,74 @@
   <style>
     .field {
       position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
     .field label {
       position: absolute;
       top: -8px;
-      left: 14px;
+      left: 18px;
       background: black;
       padding: 0 6px;
       font-size: 0.75rem;
-      color: #9ca3af;
+      color: #d1d5db;
     }
     .field input {
       width: 100%;
       padding: 14px 16px;
-      border-radius: 8px;
+      border-radius: 9999px;
       background: transparent;
-      border: 1px solid #4b5563;
+      border: 1px solid #6b7280;
       color: white;
       outline: none;
     }
     .field input:focus {
-      border-color: #22d3ee;
+      border-color: white;
     }
   </style>
 </head>
 
-<body class="bg-black text-white min-h-screen flex items-center justify-center">
+<body class="bg-black text-white min-h-screen flex flex-col">
 
-  <div class="w-full max-w-sm px-6">
+  <!-- Main -->
+  <main class="flex-1 max-w-md mx-auto px-6 pt-24 w-full">
 
-    <!-- Brand -->
-    <p class="text-center text-sm font-medium text-gray-300 mb-3">
+    <p class="text-center text-sm font-medium mb-4">
       Orecube Platform
     </p>
 
-    <h1 id="pageTitle" class="text-center text-3xl font-semibold mb-8">
+    <h1 id="pageTitle" class="text-center text-3xl font-semibold mb-10">
       Welcome back
     </h1>
 
     <!-- Email -->
     <div class="field">
       <label>Email address</label>
-      <input id="email" type="email" />
+      <input id="email" type="email" required />
     </div>
 
     <!-- Password -->
     <div class="field hidden" id="passwordWrap">
       <label>Password</label>
-      <input id="password" type="password" />
+      <input id="password" type="password" required />
     </div>
 
     <!-- Continue -->
     <button
       id="continueBtn"
-      class="w-full py-3 rounded-md bg-white text-black font-medium hover:bg-gray-200 transition">
+      class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition">
       Continue
     </button>
 
     <!-- Switch -->
     <p class="text-center text-sm text-gray-400 mt-4">
       <span id="switchText">Don’t have an account?</span>
-      <button id="toggleMode" class="text-cyan-400 hover:underline ml-1">
+      <button id="toggleMode" class="text-blue-400 hover:underline ml-1">
         Sign up
       </button>
     </p>
 
     <!-- Divider -->
-    <div class="flex items-center my-8">
+    <div class="flex items-center my-10">
       <div class="flex-1 h-px bg-gray-700"></div>
       <span class="px-3 text-gray-400 text-xs">OR</span>
       <div class="flex-1 h-px bg-gray-700"></div>
@@ -87,32 +87,32 @@
     <!-- OAuth -->
     <div class="space-y-3">
       <button id="googleSignIn"
-        class="w-full flex items-center justify-center gap-3 py-3 rounded-md bg-white text-black hover:bg-gray-200 transition">
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
         <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
         Continue with Google
       </button>
 
       <button id="microsoftSignIn"
-        class="w-full flex items-center justify-center gap-3 py-3 rounded-md bg-white text-black hover:bg-gray-200 transition">
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
         <img src="https://www.svgrepo.com/show/452062/microsoft.svg" class="w-5 h-5">
         Continue with Microsoft
       </button>
 
       <button id="githubSignIn"
-        class="w-full flex items-center justify-center gap-3 py-3 rounded-md bg-white text-black hover:bg-gray-200 transition">
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
         <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-5 h-5">
         Continue with GitHub
       </button>
     </div>
 
-    <!-- Footer -->
-    <p class="text-center text-xs text-gray-500 mt-8">
-      <a href="#" class="hover:underline">Terms</a>
-      ·
-      <a href="#" class="hover:underline">Privacy</a>
-    </p>
+  </main>
 
-  </div>
+  <!-- Footer (moved up) -->
+  <footer class="text-center text-xs text-gray-500 pb-8">
+    <a href="#" class="hover:underline">Terms of Use</a>
+    <span class="mx-2">|</span>
+    <a href="#" class="hover:underline">Privacy Policy</a>
+  </footer>
 
 </body>
 </html>
