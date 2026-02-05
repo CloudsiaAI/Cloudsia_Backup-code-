@@ -3,7 +3,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebas
 import { 
   getAuth, 
   GoogleAuthProvider, 
-  GithubAuthProvider 
+  GithubAuthProvider,
+  OAuthProvider
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 // Firebase Config
@@ -25,6 +26,7 @@ auth.languageCode = "en";
 // Providers
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
+const microsoftProvider = new OAuthProvider("microsoft.com");
 
-// Export only these
-export { auth, googleProvider, githubProvider };
+// Export
+export { auth, googleProvider, githubProvider, microsoftProvider };
