@@ -39,168 +39,155 @@
 
 <body class="bg-black text-white min-h-screen flex flex-col">
 
-<main class="flex-1 max-w-md mx-auto px-6 pt-24 w-full">
+  <!-- Main -->
+  <main class="flex-1 max-w-md mx-auto px-6 pt-24 w-full">
 
-  <p class="text-center text-sm font-medium mb-4">Orecube Platform</p>
+    <p class="text-center text-sm font-medium mb-4">
+      Orecube Platform
+    </p>
 
-  <h1 id="pageTitle" class="text-center text-3xl font-semibold mb-10">
-    Welcome back
-  </h1>
+    <h1 id="pageTitle" class="text-center text-3xl font-semibold mb-10">
+      Welcome back
+    </h1>
 
-  <!-- Email -->
-  <div class="field">
-    <label>Email address</label>
-    <input id="email" type="email" />
-  </div>
+    <!-- Email -->
+    <div class="field">
+      <label>Email address</label>
+      <input id="email" type="email" required />
+    </div>
 
-  <!-- Password -->
-  <div class="field hidden" id="passwordWrap">
-    <label>Password</label>
-    <input id="password" type="password" />
-  </div>
+    <!-- Password -->
+    <div class="field hidden" id="passwordWrap">
+      <label>Password</label>
+      <input id="password" type="password" required />
+    </div>
 
-  <!-- Forgot password (login only) -->
-  <p id="forgotWrap" class="hidden text-sm text-blue-400 mb-6 cursor-pointer hover:underline">
-    Forgot password?
-  </p>
-
-  <!-- Continue -->
-  <button
-    id="continueBtn"
-    class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition">
-    Continue
-  </button>
-
-  <!-- Switch -->
-  <p class="text-center text-sm text-gray-400 mt-4">
-    <span id="switchText">Don’t have an account?</span>
-    <button id="toggleMode" class="text-blue-400 hover:underline ml-1">
-      Sign up
-    </button>
-  </p>
-
-  <!-- Divider -->
-  <div class="flex items-center my-10">
-    <div class="flex-1 h-px bg-gray-700"></div>
-    <span class="px-3 text-gray-400 text-xs">OR</span>
-    <div class="flex-1 h-px bg-gray-700"></div>
-  </div>
-
-  <!-- OAuth -->
-  <div class="space-y-3">
-    <button id="googleSignIn"
-      class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
-      <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
-      Continue with Google
+    <!-- Continue -->
+    <button
+      id="continueBtn"
+      class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition">
+      Continue
     </button>
 
-    <button id="microsoftSignIn"
-      class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
-      <img src="https://www.svgrepo.com/show/452062/microsoft.svg" class="w-5 h-5">
-      Continue with Microsoft
-    </button>
+    <!-- Switch -->
+    <p class="text-center text-sm text-gray-400 mt-4">
+      <span id="switchText">Don’t have an account?</span>
+      <button id="toggleMode" class="text-blue-400 hover:underline ml-1">
+        Sign up
+      </button>
+    </p>
 
-    <button id="githubSignIn"
-      class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
-      <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-5 h-5">
-      Continue with GitHub
-    </button>
-  </div>
+    <!-- Divider -->
+    <div class="flex items-center my-10">
+      <div class="flex-1 h-px bg-gray-700"></div>
+      <span class="px-3 text-gray-400 text-xs">OR</span>
+      <div class="flex-1 h-px bg-gray-700"></div>
+    </div>
 
-</main>
+    <!-- OAuth -->
+    <div class="space-y-3">
+      <button id="googleSignIn"
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
+        Continue with Google
+      </button>
 
-<footer class="text-center text-xs text-gray-500 pb-8">
-  <a href="#" class="hover:underline">Terms of Use</a>
-  <span class="mx-2">|</span>
-  <a href="#" class="hover:underline">Privacy Policy</a>
-</footer>
+      <button id="microsoftSignIn"
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
+        <img src="https://www.svgrepo.com/show/452062/microsoft.svg" class="w-5 h-5">
+        Continue with Microsoft
+      </button>
 
-<script type="module">
-import { auth } from './firebase-config.js';
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  fetchSignInMethodsForEmail,
-  sendPasswordResetEmail,
-  GoogleAuthProvider,
-  GithubAuthProvider,
-  OAuthProvider
-} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+      <button id="githubSignIn"
+        class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
+        <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-5 h-5">
+        Continue with GitHub
+      </button>
+    </div>
 
-const email = document.getElementById('email');
-const password = document.getElementById('password');
-const passwordWrap = document.getElementById('passwordWrap');
-const continueBtn = document.getElementById('continueBtn');
-const pageTitle = document.getElementById('pageTitle');
-const switchText = document.getElementById('switchText');
-const toggleMode = document.getElementById('toggleMode');
-const forgotWrap = document.getElementById('forgotWrap');
+  </main>
 
-let step = 1;
-let isSignup = false;
+  <!-- Footer (moved up) -->
+  <footer class="text-center text-xs text-gray-500 pb-8">
+    <a href="#" class="hover:underline">Terms of Use</a>
+    <span class="mx-2">|</span>
+    <a href="#" class="hover:underline">Privacy Policy</a>
+  </footer>
 
-continueBtn.onclick = async () => {
-  if (!email.value) return alert("Email is required");
+  <!-- Auth Logic -->
+  <script type="module">
+    import { auth } from './firebase-config.js';
+    import {
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      signInWithPopup,
+      GoogleAuthProvider,
+      GithubAuthProvider,
+      OAuthProvider
+    } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
-  if (step === 1) {
-    const methods = await fetchSignInMethodsForEmail(auth, email.value);
+    const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
+    const microsoftProvider = new OAuthProvider('microsoft.com');
 
-    isSignup = methods.length === 0;
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const passwordWrap = document.getElementById('passwordWrap');
+    const continueBtn = document.getElementById('continueBtn');
+    const toggleMode = document.getElementById('toggleMode');
+    const pageTitle = document.getElementById('pageTitle');
+    const switchText = document.getElementById('switchText');
 
-    pageTitle.textContent = isSignup ? "Create an account" : "Enter your password";
-    continueBtn.textContent = isSignup ? "Create account" : "Sign in";
+    let isSignup = false;
+    let step = 1;
 
-    passwordWrap.classList.remove('hidden');
-    forgotWrap.classList.toggle('hidden', isSignup);
+    continueBtn.onclick = async () => {
+      if (!email.value) return alert("Enter email");
 
-    step = 2;
-    return;
-  }
+      if (step === 1) {
+        passwordWrap.classList.remove('hidden');
+        step = 2;
+        continueBtn.textContent = isSignup ? 'Create account' : 'Sign in';
+        return;
+      }
 
-  try {
-    if (isSignup) {
-      await createUserWithEmailAndPassword(auth, email.value, password.value);
-    } else {
-      await signInWithEmailAndPassword(auth, email.value, password.value);
-    }
-    window.location.href = "/";
-  } catch (e) {
-    alert(e.message);
-  }
-};
+      try {
+        if (isSignup) {
+          await createUserWithEmailAndPassword(auth, email.value, password.value);
+        } else {
+          await signInWithEmailAndPassword(auth, email.value, password.value);
+        }
+        window.location.href = '/';
+      } catch (e) {
+        alert(e.message);
+      }
+    };
 
-forgotWrap.onclick = async () => {
-  await sendPasswordResetEmail(auth, email.value);
-  alert("Password reset email sent");
-};
+    toggleMode.onclick = () => {
+      isSignup = !isSignup;
+      pageTitle.textContent = isSignup ? 'Create an account' : 'Welcome back';
+      switchText.textContent = isSignup ? 'Already have an account?' : 'Don’t have an account?';
+      toggleMode.textContent = isSignup ? 'Log in' : 'Sign up';
+      continueBtn.textContent = 'Continue';
+      passwordWrap.classList.add('hidden');
+      step = 1;
+    };
 
-toggleMode.onclick = () => {
-  step = 1;
-  passwordWrap.classList.add('hidden');
-  forgotWrap.classList.add('hidden');
-  continueBtn.textContent = "Continue";
-};
+    document.getElementById('googleSignIn').onclick = async () => {
+      await signInWithPopup(auth, googleProvider);
+      window.location.href = '/';
+    };
 
-const googleProvider = new GoogleAuthProvider();
-const githubProvider = new GithubAuthProvider();
-const microsoftProvider = new OAuthProvider('microsoft.com');
+    document.getElementById('githubSignIn').onclick = async () => {
+      await signInWithPopup(auth, githubProvider);
+      window.location.href = '/';
+    };
 
-googleSignIn.onclick = async () => {
-  await signInWithPopup(auth, googleProvider);
-  window.location.href = "/";
-};
-
-githubSignIn.onclick = async () => {
-  await signInWithPopup(auth, githubProvider);
-  window.location.href = "/";
-};
-
-microsoftSignIn.onclick = async () => {
-  await signInWithPopup(auth, microsoftProvider);
-  window.location.href = "/";
-};
-</script>
+    document.getElementById('microsoftSignIn').onclick = async () => {
+      await signInWithPopup(auth, microsoftProvider);
+      window.location.href = '/';
+    };
+  </script>
 
 </body>
 </html>
