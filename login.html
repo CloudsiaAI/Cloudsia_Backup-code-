@@ -3,214 +3,202 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign in — Orecube</title>
+  <title>Login – Orecube</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="/firebase-config.js"></script>
-
   <style>
-    body { background: #000; color: #fff; min-height: 100vh; display: flex; flex-direction: column; }
-    .field { position: relative; margin-bottom: 28px; }
-    .field label {
+    /* Floating label */
+    .floating-label input:focus + label,
+    .floating-label input:not(:placeholder-shown) + label {
+      transform: translateY(-1.25rem) scale(0.85);
+      color: #ccc;
+    }
+    .floating-label label {
       position: absolute;
-      top: -8px;
-      left: 18px;
-      background: #000;
-      padding: 0 6px;
-      font-size: 0.75rem;
-      color: #d1d5db;
-    }
-    .field input {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 9999px;
-      background: transparent;
-      border: 1px solid #6b7280;
-      color: white;
-      outline: none;
-    }
-    .field input:focus { border-color: white; }
-    .hidden { display: none; }
-    .error-popup {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #f87171;
-      color: #000;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: 500;
-      z-index: 1000;
-      display: none;
+      left: 0.75rem;
+      top: 0.75rem;
+      color: #aaa;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      background: black;
+      padding: 0 0.25rem;
     }
   </style>
 </head>
+<body class="bg-black text-white min-h-screen flex flex-col justify-center items-center">
 
-<body>
+  <div class="w-full max-w-md px-6 py-8">
+    <h2 class="text-center text-2xl font-semibold mb-8">Welcome to Orecube</h2>
 
-  <!-- Error popup -->
-  <div id="errorPopup" class="error-popup"></div>
-
-  <!-- Main Container -->
-  <main class="flex-1 max-w-md mx-auto w-full px-6 pt-24 flex flex-col justify-start">
-
-    <h1 id="pageTitle" class="text-center text-3xl font-semibold mb-10">Welcome back</h1>
-
-    <!-- Step 1: Email -->
-    <div id="stepEmail" class="flex flex-col">
-      <div class="field">
-        <label>Email address</label>
-        <input id="email" type="email" placeholder="Enter your email" />
+    <!-- Step Containers -->
+    <div id="step-email" class="space-y-6">
+      <!-- Email Input -->
+      <div class="relative floating-label w-full">
+        <input type="email" id="email" placeholder=" " required
+               class="w-full px-4 py-3 rounded-md border border-white/30 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400/40" />
+        <label for="email">Email address</label>
       </div>
-      <button id="continueBtn" class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition">
+      <p id="emailError" class="text-red-500 text-sm hidden">Invalid email address</p>
+
+      <button id="continueEmail" class="w-full py-3 rounded-md bg-white text-black font-semibold hover:bg-gray-200 transition">
+        Continue
+      </button>
+
+      <!-- OAuth Buttons -->
+      <div class="flex flex-col gap-3 mt-4">
+        <button id="googleSignIn" class="flex items-center justify-center gap-3 bg-white text-black py-2 rounded-md hover:bg-gray-200 transition">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5">
+          Continue with Google
+        </button>
+        <button id="githubSignIn" class="flex items-center justify-center gap-3 bg-gray-800 text-white py-2 rounded-md hover:bg-gray-700 transition">
+          <img src="https://www.svgrepo.com/show/512317/github-142.svg" alt="GitHub" class="w-5 h-5">
+          Continue with GitHub
+        </button>
+        <button id="microsoftSignIn" class="flex items-center justify-center gap-3 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-500 transition">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_(2012).svg" alt="Microsoft" class="w-5 h-5">
+          Continue with Microsoft
+        </button>
+      </div>
+    </div>
+
+    <!-- Password Step -->
+    <div id="step-password" class="space-y-6 hidden">
+      <h3 class="text-xl font-semibold">Enter your password</h3>
+      <div class="relative floating-label w-full">
+        <input type="password" id="password" placeholder=" " required
+               class="w-full px-4 py-3 rounded-md border border-white/30 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400/40" />
+        <label for="password">Password</label>
+      </div>
+      <p id="passwordError" class="text-red-500 text-sm hidden">Incorrect password</p>
+      <div class="text-right">
+        <button id="forgotPassword" class="text-cyan-400 text-sm hover:underline">Forgot password?</button>
+      </div>
+      <button id="continuePassword" class="w-full py-3 rounded-md bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition">
         Continue
       </button>
     </div>
 
-    <!-- Step 2: Password (Login / Signup) -->
-    <div id="stepPassword" class="hidden flex flex-col">
-      <div class="field">
-        <label>Password</label>
-        <input id="password" type="password" placeholder="Enter your password" />
+    <!-- Verification Step -->
+    <div id="step-verify" class="space-y-6 hidden">
+      <h3 class="text-xl font-semibold text-center">Check your inbox</h3>
+      <p class="text-gray-400 text-center text-sm" id="verifyEmailText">Enter the verification code sent to you</p>
+      <div class="relative floating-label w-full">
+        <input type="text" id="verifyCode" placeholder=" " required
+               class="w-full px-4 py-3 rounded-md border border-white/30 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400/40" />
+        <label for="verifyCode">Code</label>
       </div>
-      <button id="loginBtn" class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition">
-        Sign In
+      <p id="verifyError" class="text-red-500 text-sm hidden">Invalid verification code</p>
+      <button id="continueVerify" class="w-full py-3 rounded-md bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition">
+        Continue
       </button>
-      <p class="text-right text-sm mt-2"><button id="forgotPassword" class="text-blue-400 hover:underline">Forgot password?</button></p>
-    </div>
-
-    <!-- Step 3: Verification Code -->
-    <div id="stepVerify" class="hidden flex flex-col">
-      <div class="field">
-        <label>Verification Code</label>
-        <input id="verifyCode" type="text" placeholder="Enter verification code" />
-      </div>
-      <button id="verifyBtn" class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition">
-        Verify
-      </button>
-    </div>
-
-    <!-- Divider -->
-    <div class="flex items-center my-8">
-      <div class="flex-1 h-px bg-gray-700"></div>
-      <span class="px-3 text-gray-400 text-xs">OR</span>
-      <div class="flex-1 h-px bg-gray-700"></div>
-    </div>
-
-    <!-- OAuth Buttons -->
-    <div class="space-y-3">
-      <button id="googleSignIn" class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
-        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">Continue with Google
-      </button>
-      <button id="microsoftSignIn" class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
-        <img src="https://www.svgrepo.com/show/452062/microsoft.svg" class="w-5 h-5">Continue with Microsoft
-      </button>
-      <button id="githubSignIn" class="w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white text-black hover:bg-gray-200 transition">
-        <img src="https://www.svgrepo.com/show/512317/github-142.svg" class="w-5 h-5">Continue with GitHub
-      </button>
+      <button id="resendCode" class="text-sm text-cyan-400 hover:underline">Resend email</button>
     </div>
 
     <!-- Terms -->
-    <p class="text-center text-xs text-gray-400 mt-6">
-      By continuing, you agree to our <a href="#" class="underline">Terms of Use</a> and <a href="#" class="underline">Privacy Policy</a>.
+    <p class="text-gray-400 text-sm text-center mt-12 mb-4">
+      <a href="#" class="hover:underline">Terms of Use</a> | 
+      <a href="#" class="hover:underline">Privacy Policy</a>
     </p>
-
-  </main>
+  </div>
 
   <script type="module">
     import { auth, googleProvider, githubProvider, microsoftProvider } from './firebase-config.js';
-    import { 
-      signInWithEmailAndPassword, 
-      createUserWithEmailAndPassword, 
-      signInWithPopup, 
-      sendPasswordResetEmail 
-    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword } 
+      from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
 
-    const stepEmail = document.getElementById("stepEmail");
-    const stepPassword = document.getElementById("stepPassword");
-    const stepVerify = document.getElementById("stepVerify");
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    const continueBtn = document.getElementById("continueBtn");
-    const loginBtn = document.getElementById("loginBtn");
-    const verifyBtn = document.getElementById("verifyBtn");
-    const errorPopup = document.getElementById("errorPopup");
-    const forgotPassword = document.getElementById("forgotPassword");
+    // Step elements
+    const stepEmail = document.getElementById('step-email');
+    const stepPassword = document.getElementById('step-password');
+    const stepVerify = document.getElementById('step-verify');
 
-    // Step 1 → Email Continue
-    continueBtn.addEventListener("click", () => {
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const verifyInput = document.getElementById('verifyCode');
+
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const verifyError = document.getElementById('verifyError');
+
+    // Step buttons
+    const continueEmail = document.getElementById('continueEmail');
+    const continuePassword = document.getElementById('continuePassword');
+    const continueVerify = document.getElementById('continueVerify');
+
+    // OAuth buttons
+    const googleSignInBtn = document.getElementById('googleSignIn');
+    const githubSignInBtn = document.getElementById('githubSignIn');
+    const microsoftSignInBtn = document.getElementById('microsoftSignIn');
+
+    // Step 1: Email
+    continueEmail.addEventListener('click', async () => {
       const email = emailInput.value.trim();
-      if (!email) return showError("Email is required");
-      // Check if user exists (simplified)
-      auth.fetchSignInMethodsForEmail(email).then(methods => {
-        if (methods.length > 0) {
-          // existing user → show password
-          stepEmail.classList.add("hidden");
-          stepPassword.classList.remove("hidden");
-        } else {
-          // new user → show password for signup
-          stepEmail.classList.add("hidden");
-          stepPassword.classList.remove("hidden");
-          loginBtn.textContent = "Sign Up";
-        }
-      }).catch(err => showError(err.message));
+      if (!email) {
+        emailError.textContent = 'Email is required';
+        emailError.classList.remove('hidden');
+        return;
+      }
+      emailError.classList.add('hidden');
+      stepEmail.classList.add('hidden');
+      stepPassword.classList.remove('hidden');
     });
 
-    // Step 2 → Login / Signup
-    loginBtn.addEventListener("click", async () => {
+    // Step 2: Password
+    continuePassword.addEventListener('click', async () => {
       const email = emailInput.value.trim();
-      const password = passwordInput.value.trim();
-      if (!email || !password) return showError("Email and password required");
-
-      try {
-        if (loginBtn.textContent === "Sign Up") {
-          await createUserWithEmailAndPassword(auth, email, password);
-        } else {
-          await signInWithEmailAndPassword(auth, email, password);
-        }
-        window.location.href = "/"; // redirect home
-      } catch (err) {
-        showError(err.message);
+      const password = passwordInput.value;
+      if (!password) {
+        passwordError.textContent = 'Password is required';
+        passwordError.classList.remove('hidden');
+        return;
       }
+      passwordError.classList.add('hidden');
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = '/'; // redirect
+      } catch (err) {
+        passwordError.textContent = 'Incorrect password';
+        passwordError.classList.remove('hidden');
+      }
+    });
+
+    // Step 3: Verification
+    continueVerify.addEventListener('click', async () => {
+      const code = verifyInput.value.trim();
+      if (!code) {
+        verifyError.textContent = 'Code is required';
+        verifyError.classList.remove('hidden');
+        return;
+      }
+      verifyError.classList.add('hidden');
+      // verification logic here
+      alert('Verified successfully!'); // placeholder
+    });
+
+    // OAuth handlers
+    googleSignInBtn.addEventListener('click', async () => {
+      try { await signInWithPopup(auth, googleProvider); window.location.href='/'; } 
+      catch (err) { alert(err.message); }
+    });
+
+    githubSignInBtn.addEventListener('click', async () => {
+      try { await signInWithPopup(auth, githubProvider); window.location.href='/'; } 
+      catch (err) { alert(err.message); }
+    });
+
+    microsoftSignInBtn.addEventListener('click', async () => {
+      try { await signInWithPopup(auth, microsoftProvider); window.location.href='/'; } 
+      catch (err) { alert(err.message); }
     });
 
     // Forgot password
-    forgotPassword.addEventListener("click", async () => {
-      const email = emailInput.value.trim();
-      if (!email) return showError("Enter your email first");
-      try {
-        await sendPasswordResetEmail(auth, email);
-        showError("Password reset email sent", true);
-      } catch (err) {
-        showError(err.message);
-      }
+    document.getElementById('forgotPassword').addEventListener('click', () => {
+      alert('Redirect to forgot password flow'); // Implement Firebase reset password logic
     });
 
-    // OAuth buttons
-    document.getElementById("googleSignIn").addEventListener("click", async () => {
-      try { await signInWithPopup(auth, googleProvider); window.location.href = "/"; } 
-      catch(err){ showError(err.message); }
+    // Resend code
+    document.getElementById('resendCode').addEventListener('click', () => {
+      alert('Resend verification code'); // Implement resend logic
     });
-
-    document.getElementById("microsoftSignIn").addEventListener("click", async () => {
-      try { await signInWithPopup(auth, microsoftProvider); window.location.href = "/"; } 
-      catch(err){ showError(err.message); }
-    });
-
-    document.getElementById("githubSignIn").addEventListener("click", async () => {
-      try { await signInWithPopup(auth, githubProvider); window.location.href = "/"; } 
-      catch(err){ showError(err.message); }
-    });
-
-    // Error popup
-    function showError(msg, success=false){
-      errorPopup.textContent = msg;
-      errorPopup.style.background = success ? "#22c55e" : "#f87171";
-      errorPopup.style.display = "block";
-      setTimeout(()=> errorPopup.style.display="none", 3000);
-    }
-
   </script>
-
 </body>
-</html>
+  </html>
